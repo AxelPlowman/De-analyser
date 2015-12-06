@@ -1,0 +1,25 @@
+/* 
+-------------------------------------------------------------
+  MAIN STYLE
+-------------------------------------------------------------
+*/ 
+#audioPlayer {
+  width: 500px; 
+  height: 60px; 
+  background: #000; 
+  padding: 5px; 
+  margin: 50px auto; 
+}
+
+#audioPlayer audio {
+  width: 500px;
+  background: #000;
+  float: left;
+}
+
+#audioPlayer canvas { 
+  width: 500px; 
+  height: 30px; 
+  background: #002D3C; 
+  float: left; 
+}
