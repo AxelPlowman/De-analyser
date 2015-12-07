@@ -17,9 +17,3 @@
   float: left;
 }
 
-#audioPlayer canvas { 
-  width: 500px; 
-  height: 30px; 
-  background: #002D3C; 
-  float: left; 
-}
