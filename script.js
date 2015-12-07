@@ -1,30 +1,43 @@
-var audio = new Audio(); //Hier maken we een <audio> in het HTML-bestand en specificeren hem.
-audio.src = "audio/Phoenix.wav";
-audio.controls = true; 
-audio.autoplay = true;
-document.getElementById("audioBox").appendChild(audio); //Hier zeggen we waar <audio> moet staan in het HTML-bestand
-var context = new AudioContext(); //Hier wordt een audiocontext gemaakt, anders gezegd: alle informatie over de geluiddetails worden in het variabel context opgeslagen.
-var source, frequencyData; //Hier worden enkele variabelen aangemaakt, om die vooral bovenin het document te houden.
-var analyser = context.createAnalyser(); //Hier wordt een analyser gemaakt in de auciocontext.
+var canvas, ctx, source, context, analyser, fbcArray, bars, barX, barWidth, barHeight; //Creëert een heleboel variabelen voor de analyser.
+var audio = new Audio(); //Hier maken we een nieuwee <audio> in het HTML-bestand.
 
-window.addEventListener("load", initAudioPlayer, false); //Als de pagina geladen is, roept functie 'initAudioPlayer' aan.
+//Audio specificeren:
+audio.src = "audio/Phoenix.wav"; //Het liedje. http://icecast.omroep.nl/3fm-bb-mp3
+audio.controls = true; //Standaard audio knoppen.
+audio.loop = true; //Liedje afgelopen? Dan begint hij opnieuw.
+audio.autoplay = true; //Stelt dat de audio niet begint met lopen wanneer de pagina wordt geopend.
 
-function initAudioPlayer() {
-	source = context.createMediaElementSource(audio); //Hier creëert hij een node(koppelpunt) in de audiocontext, zodat deze straks verbonden kan worden.
-	//frequencyData = new Uint8Array(analyser.frequencyBinCount);
-	//analyser.getByteFrequencyData(frequencyData);
-	source.connect(analyser); //Verbind de source met de analyser.
-	analyser.connect(context.destination); //Verbind de analyser met het eindpunt, zodat het geluid wordt afgespeeld.
-	frameLooper(); //Roept de functie frameLooper aan.
+window.addEventListener("load", initAudioPlayer, false); //Stelt: als de pagina geladen is, voer dan de functie "initAudioPlayer" uit.
+
+//De hierboven aangeroepen functie:
+function initAudioPlayer(){
+	document.getElementById("audioBox").appendChild(audio); //Stelt dat de hierboven gemaakte audio in de audioBox van het HTML-bestand gaat.
+	context = new AudioContext(); //Creëert een audio context voor de analyaer
+	analyser = context.createAnalyser(); //Creëert een analysernode in de context.
+	canvas = document.getElementById("analyserRender"); //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand met het ID 'analyser'.
+	ctx = canvas.getContext("2d"); //We geven de canvas een 2D context en slaan deze op in 'ctx'.
+	//Hieronder wordt de boel met elkaar geconnect: 
+	analyser.FFTSize = 10;
+	source = context.createMediaElementSource(audio); 
+	source.connect(analyser);
+	analyser.connect(context.destination);
+	frameLooper(); //Runt de functie frameLooper.
 }
 
-function frameLooper() { 
-	window.requestAnimationFrame(frameLooper); //Elke keer dat het scherm ververst (60 keer per seconde ofzo?) wordt de functie opnieuw aangeroepen, er ontstaat dus een loop.
-	frequencyData = new Uint8Array(analyser.frequencyBinCount); //Stopt de audiodata in een array (stap 1).
-	analyser.getByteFrequencyData(frequencyData); //Stopt de audiodata in een array (stap 2).
-	
-	//Hier moeten de visuels worden geplaatst. De functie zorgt dat elke keer als het scherm een 'repaint' doet, de frequencyData ververst. Als jouw animatie hier staat en gebasseerd is op de frequencyData, dan wordt die dus ook steeds ververst.
-	console.log(frequencyData); //De console.log laat zien hoe de data in de array verandert, dit is slechts voorbeeld, als je ermee gaat werken zou ik het weghalen. Het vertraagt slechts.
+//Hieronder de frameLooperfunctie. Deze geeft de animaties op basis van de audiofrequentie.
+function frameLooper(){
+	window.requestAnimationFrame(frameLooper); //Creërt een loop voor de animatie.
+	fbcArray = new Uint8Array(analyser.frequencyBinCount); //Stopt de audiodata in een array.
+	analyser.getByteFrequencyData(fbcArray);
+	ctx.clearRect(0, 0, canvas.width, canvas.height); //'Clear' de canvas.
+	ctx.fillStyle = "#FF8811"; //Stelt de keur.
+	bars = 100; //Hoeveelheid staven(bars).
+	for (var i = 0; i < bars; i++) { //Deze loopt de staven.
+		barX = i * 3; //Bepaalt de plaats van iederen staaf, zodat ze naast elkaar staan.
+		barWidth = 2; //Bepaalt de breedte van de staven.
+		barHeight = -(fbcArray[i] / 2);
+		if (fbcArray[i] >= 0,5) {barHeight = -(fbcArray[i] * 5)} //Bepaalt de hoogte van de staven op basis van de de audiodata (dus het samplegetal) die in de array is gestopt. 
+		//  fillRect( x, y, width, height ) // Explanation of the parameters below
+		ctx.fillRect(barX, canvas.height, barWidth, barHeight); //Deze geeft de staven weer.
+	}
 }
-
-
