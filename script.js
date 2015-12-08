@@ -10,7 +10,7 @@ var SoundCloudAudioSource = function(audioElement) {
     analyser = context.createAnalyser();
     analyser.fftSize = 256;
     var source = context.createMediaElementSource(player);
-    source.playbackRate = 1.25;
+    source.playbackRate(1.24);
     source.connect(analyser);
     analyser.connect(context.destination);
 
