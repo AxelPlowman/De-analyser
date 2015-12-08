@@ -1,5 +1,6 @@
 var analyser;
 
+
 var SoundCloudAudioSource = function(audioElement) {
     var player = document.getElementById(audioElement);
     player.crossOrigin = 'Anonymous';
@@ -7,11 +8,18 @@ var SoundCloudAudioSource = function(audioElement) {
     self.streamData = new Uint8Array(128);
   
     var context = new AudioContext();
+    var biquadFilter = audioCtx.createBiquadFilter();
     analyser = context.createAnalyser();
+
     analyser.fftSize = 256;
     var source = context.createMediaElementSource(player);
-    source.connect(analyser);
+    source.connect(biquadFilter);
+    biquadFilter.connect(analyser);
     analyser.connect(context.destination);
+
+    biquadFilter.type = "lowpass";
+    biquadFilter.frequency.value = 1000;
+    biquadFilter.gain.value = 25;
 
     this.loadStream = function(track_url) {
         var clientID = "00856b340598a8c7e317e1f148b5a13c";
