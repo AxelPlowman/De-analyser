@@ -66,8 +66,7 @@ loopendControl.oninput = function() {
   source.loopEnd = loopendControl.value;
   loopendValue.innerHTML = loopendControl.value;
 }
-// dump script to pre element
-pre.innerHTML = myScript.innerHTML;
+
 
 
 
