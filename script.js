@@ -1,5 +1,5 @@
-var filterFreq,
-    filterQ;
+var filterFreq = document.getElementById("freqSlider");
+var filterQ = document.getElementById("qSlider");
 
 var analyser;
 
@@ -21,8 +21,8 @@ var SoundCloudAudioSource = function(audioElement) {
     analyser.connect(context.destination);
 
     biquadFilter.type = "lowpass";
-    biquadFilter.frequency.value = 1000;
-    biquadFilter.gain.value = 25;
+    biquadFilter.frequency.value = filterFreq;
+    biquadFilter.gain.value = filterQ;
 
     this.loadStream = function(track_url) {
         var clientID = "00856b340598a8c7e317e1f148b5a13c";
