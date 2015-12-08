@@ -1,3 +1,6 @@
+var filterFreq,
+    filterQ;
+
 var analyser;
 
 
