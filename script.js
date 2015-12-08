@@ -48,3 +48,7 @@ window.onload = function() {
         audioSource.loadStream(track_url);
     };
 };
+playbackControl.oninput = function() {
+  source.playbackRate.value = playbackControl.value;
+  playbackValue.innerHTML = playbackControl.value;
+}
