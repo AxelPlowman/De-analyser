@@ -8,7 +8,7 @@ var SoundCloudAudioSource = function(audioElement) {
     self.streamData = new Uint8Array(128);
   
     var context = new AudioContext();
-    var biquadFilter = audioCtx.createBiquadFilter();
+    var biquadFilter = context.createBiquadFilter();
     analyser = context.createAnalyser();
 
     analyser.fftSize = 256;
