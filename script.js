@@ -1,3 +1,32 @@
+var SoundCloudAudioSource = function(audioElement) {
+    var player = document.getElementById(audioElement);
+    player.crossOrigin = 'Anonymous';
+    var self = this;
+    self.streamData = new Uint8Array(128);
+  
+    var context = new AudioContext();
+    analyser = context.createAnalyser();
+    analyser.fftSize = 256;
+    var source = context.createMediaElementSource(player);
+    source.connect(analyser);
+    analyser.connect(context.destination);
+
+    this.loadStream = function(track_url) {
+        var clientID = "00856b340598a8c7e317e1f148b5a13c";
+
+        SC.initialize({
+            client_id: clientID
+        });
+        SC.get('/resolve', { url: track_url }, function(track) {
+            SC.get('/tracks/' + track.id, {}, function(sound, error) {
+                player.setAttribute('src', sound.stream_url + '?client_id=' + clientID);
+                player.play();
+            });
+        });
+    };
+    frameLooper();
+};
+
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var source;
 var songLength;
