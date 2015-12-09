@@ -39,16 +39,18 @@ var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canva
 	],
 
 	//excuse me, ten slider inputs coming trough...
-	slider1Input = document.querySelector('#filterFreqIn1'),
-	slider2Input = document.querySelector('#filterFreqIn2'),
-	slider3Input = document.querySelector('#filterFreqIn3'),
-	slider4Input = document.querySelector('#filterFreqIn4'),
-	slider5Input = document.querySelector('#filterFreqIn5'),
-	slider6Input = document.querySelector('#filterFreqIn6'),
-	slider7Input = document.querySelector('#filterFreqIn7'),
-	slider8Input = document.querySelector('#filterFreqIn8'),
-	slider9Input = document.querySelector('#filterFreqIn9'),
-	slider10Input = document.querySelector('#filterFreqIn10');
+	sliderIDList = [
+	'#EQValueIn1',
+	'#EQValueIn2',
+	'#EQValueIn3',
+	'#EQValueIn4',
+	'#EQValueIn5',
+	'#EQValueIn6',
+	'#EQValueIn7',
+	'#EQValueIn8',
+	'#EQValueIn9',
+	'#EQValueIn10',
+	];
 
 	//variables to be filled later on:
 var source, fbcArray, bars, barX, barWidth, barHeight;
@@ -67,13 +69,7 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 	equaliserNodes[i].frequency.value = equaliserFrequencies[i];
 	equaliserNodes[i].gain.value = 0;
 	console.log(equaliserFrequencies[i]);
-
 };
-
-// biquadFilter.type = "peaking";
-// biquadFilter.frequency.value = slider1Input.value;
-// biquadFilter.Q.value = 1;
-// biquadFilter.gain.value = 24;
 
 //audio settings
 audio.src = "audio/Phoenix.wav"; 
@@ -89,9 +85,12 @@ audio.autoplay = true;
 window.addEventListener("load", initAudioPlayer, false); //Stelt: als de pagina geladen is, voer dan de functie "initAudioPlayer" uit.
 
 //range slider inputs to equaliser nodes
-slider1Input.addEventListener('input', function () {
-	equaliserNodes[0].gain.value = slider1Input.value;
-	console.log(equaliserNodes[0].gain.value);
+document.querySelector(".equaliserSliders").addEventListener('input', function () {
+	for (var i = 0; i < equaliserNodes.length; i++) {
+		equaliserNodes[i].gain.value = document.querySelector(sliderIDList[i]).value;
+		console.log(equaliserNodes[i].gain.value);
+	};
+	
 }, false);
 
 
