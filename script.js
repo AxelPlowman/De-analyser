@@ -91,6 +91,13 @@ document.querySelector(".equaliserSliders").addEventListener('input', function (
 		console.log(equaliserNodes[i].gain.value);
 	};
 }, false);
+//reset button
+document.querySelector(".resetButton").addEventListener('click', function () {
+	for (var i = 0; i < equaliserNodes.length; i++) {
+		equaliserNodes[i].gain.value = 0;
+		console.log(equaliserNodes[i].gain.value);
+	};
+}, false);
 
 
 
