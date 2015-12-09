@@ -1,26 +1,39 @@
-var canvas, ctx, source, context, analyser, fbcArray, bars, barX, barWidth, barHeight; //Creëert een heleboel variabelen voor de analyser.
-var audio = new Audio(); //Hier maken we een nieuwee <audio> in het HTML-bestand.
+var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand 
+	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
+	audio = new Audio(), //creates new <audio>
+
+	audioCtx = new AudioContext(),
+	biquadFilter = audioCtx.createBiquadFilter(),
+	analyser = context.createAnalyser(),
+	analyser.FFTSize = 2048,
+
+	//variables to be filled later on:
+	source, context, fbcArray, bars, barX, barWidth, barHeight;
+	
 
 //Audio specificeren:
-audio.src = "audio/Phoenix.wav"; //Het liedje. http://icecast.omroep.nl/3fm-bb-mp3
+audio.src = "audio/Phoenix.wav"; //Het liedje.
 audio.controls = true; //Standaard audio knoppen.
 audio.loop = true; //Liedje afgelopen? Dan begint hij opnieuw.
 audio.autoplay = true; //Stelt dat de audio niet begint met lopen wanneer de pagina wordt geopend.
 
 window.addEventListener("load", initAudioPlayer, false); //Stelt: als de pagina geladen is, voer dan de functie "initAudioPlayer" uit.
 
+
+
+
 //De hierboven aangeroepen functie:
 function initAudioPlayer(){
 	document.getElementById("audioBox").appendChild(audio); //Stelt dat de hierboven gemaakte audio in de audioBox van het HTML-bestand gaat.
-	context = new AudioContext(); //Creëert een audio context voor de analyaer
-	analyser = context.createAnalyser(); //Creëert een analysernode in de context.
-	canvas = document.getElementById("analyserRender"); //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand met het ID 'analyser'.
-	ctx = canvas.getContext("2d"); //We geven de canvas een 2D context en slaan deze op in 'ctx'.
+
 	//Hieronder wordt de boel met elkaar geconnect: 
-	analyser.FFTSize = 10;
 	source = context.createMediaElementSource(audio); 
-	source.connect(analyser);
+
+	// audiopath
+	source.connect(biQuadfilter);
 	analyser.connect(context.destination);
+
+
 	frameLooper(); //Runt de functie frameLooper.
 }
 
@@ -30,8 +43,6 @@ function frameLooper(){
 	fbcArray = new Uint8Array(analyser.frequencyBinCount); //Stopt de audiodata in een array.
 	analyser.getByteFrequencyData(fbcArray);
 	ctx.clearRect(0, 0, canvas.width, canvas.height); //'Clear' de canvas.
-	
-	
 	
 	bars = 30; //Hoeveelheid staven(bars).
 	for (var i = 0; i < bars; i++) { //Deze loopt de staven.
