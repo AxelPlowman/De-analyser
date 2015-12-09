@@ -4,14 +4,14 @@ var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canva
 
 	audioCtx = new AudioContext(),
 	biquadFilter = audioCtx.createBiquadFilter(),
-	analyser = context.createAnalyser(),
 	
 
 	//variables to be filled later on:
-	source, context, fbcArray, bars, barX, barWidth, barHeight;
-	
-analyser.FFTSize = 2048, //sets analyser's FFTSize-property
-	
+	analyser, source, context, fbcArray, bars, barX, barWidth, barHeight;
+
+analyser = context.createAnalyser();
+analyser.FFTSize = 2048; //sets analyser's FFTSize-property
+
 
 //Audio specificeren:
 audio.src = "audio/Phoenix.wav"; //Het liedje.
