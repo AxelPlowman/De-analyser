@@ -83,7 +83,7 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 //	EVENT LISTENERS
 //////////////////////////////////////////
 
-window.addEventListener("load", initAudioPlayer, false); //Stelt: als de pagina geladen is, voer dan de functie "initAudioPlayer" uit.
+//window.addEventListener("load", initAudioPlayer, false); //Stelt: als de pagina geladen is, voer dan de functie "initAudioPlayer" uit.
 
 //range slider inputs to equaliser nodes
 document.querySelector(".equaliserSliders").addEventListener('input', function () {
