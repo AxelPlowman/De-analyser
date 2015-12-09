@@ -9,8 +9,14 @@ var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canva
 	//variables to be filled later on:
 	analyser, source, fbcArray, bars, barX, barWidth, barHeight;
 
+//analyser settings
 analyser = audioCtx.createAnalyser();
 analyser.FFTSize = 2048; //sets analyser's FFTSize-property
+
+//biquadFilter settings
+biquadFilter.type = "lowpass";
+biquadFilter.frequency.value = 1000;
+biquadFilter.gain.value = 25;
 
 
 //Audio specificeren:
@@ -51,7 +57,7 @@ function frameLooper(){
 	for (var i = 0; i < bars; i++) { //Deze loopt de staven.
 		canvasCtx.fillStyle = "hsla("+i*12+", "+50+Math.floor(fbcArray[i]/255*50)+"%, 20%,"+(fbcArray[i]/255)+")";
 		barX = i * 3; //Bepaalt de plaats van iederen staaf, zodat ze naast elkaar staan.
-		barWidth = 10; //Bepaalt de breedte van de staven.
+		barWidth = 2; //Bepaalt de breedte van de staven.
 		barHeight = -(fbcArray[i] / 2);
 		if (fbcArray[i] >= 0.5) {barHeight = -(fbcArray[i] * 1)} //Bepaalt de hoogte van de staven op basis van de de audiodata (dus het samplegetal) die in de array is gestopt. 
 		//  fillRect( x, y, width, height ) // Explanation of the parameters below
