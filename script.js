@@ -1,23 +1,44 @@
+//////////////////////////////////////////
+//	VARIABLES
+//////////////////////////////////////////
 var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand 
 	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
 	audio = new Audio(), //creates new <audio>
 
 	audioCtx = new AudioContext(),
 
-	//creates 10 biquadFilters, one for each node in our equaliser
-	equaliserNodes = [audioCtx.createBiquadFilter(), 
-		audioCtx.createBiquadFilter(), 
-		audioCtx.createBiquadFilter(), 
-		audioCtx.createBiquadFilter(), 
-		audioCtx.createBiquadFilter(), 
-		audioCtx.createBiquadFilter(), 
-		audioCtx.createBiquadFilter(), 
-		audioCtx.createBiquadFilter(), 
-		audioCtx.createBiquadFilter(), 
-		audioCtx.createBiquadFilter()],
-	biquadFilter = audioCtx.createBiquadFilter(),
+	//creates an analyser node
+	analyser = audioCtx.createAnalyser();
 
-	//excuse us for our 10 sliders... 
+	//creates 10 biquadFilter nodes, one for each frequency in our equaliser
+	equaliserNodes = [
+		audioCtx.createBiquadFilter(), 
+		audioCtx.createBiquadFilter(), 
+		audioCtx.createBiquadFilter(), 
+		audioCtx.createBiquadFilter(), 
+		audioCtx.createBiquadFilter(), 
+		audioCtx.createBiquadFilter(), 
+		audioCtx.createBiquadFilter(), 
+		audioCtx.createBiquadFilter(), 
+		audioCtx.createBiquadFilter(), 
+		audioCtx.createBiquadFilter()
+	],
+
+	//frequencies that can be boosted or decreased in volume
+	equaliserFrequencies = [
+		32,
+		54,
+		125,
+		250,
+		500,
+		1000,
+		2000,
+		4000,
+		8000,
+		16000
+	],
+
+	//excuse me, ten slider inputs coming trough...
 	slider1Input = document.querySelector('#filterFreqIn1'),
 	slider2Input = document.querySelector('#filterFreqIn2'),
 	slider3Input = document.querySelector('#filterFreqIn3'),
@@ -27,42 +48,50 @@ var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canva
 	slider7Input = document.querySelector('#filterFreqIn7'),
 	slider8Input = document.querySelector('#filterFreqIn8'),
 	slider9Input = document.querySelector('#filterFreqIn9'),
-	slider10Input = document.querySelector('#filterFreqIn10'),
-
-	
+	slider10Input = document.querySelector('#filterFreqIn10');
 
 	//variables to be filled later on:
-	analyser, source, fbcArray, bars, barX, barWidth, barHeight;
+var source, fbcArray, bars, barX, barWidth, barHeight;
 
 
+//////////////////////////////////////////
+//	WEB SOUND API ELEMENT SETTINGS
+//////////////////////////////////////////
 //analyser settings
-analyser = audioCtx.createAnalyser();
 analyser.FFTSize = 2048; //sets analyser's FFTSize-property
 
-//biquadFilter settings
-biquadFilter.type = "peaking";
-biquadFilter.frequency.value = slider1Input.value;
-biquadFilter.Q.value = 1;
-biquadFilter.gain.value = 24;
+//biquadFilter default settings
+for (var i = 0; i < equaliserNodes.length; i++) {
+	equaliserNodes[i].type = "peaking";
+	equaliserNodes[i].Q.value = 1;
+	equaliserNodes[i].frequency.value = equaliserFrequencies[i];
+	equaliserNodes[i].gain.value = 0;
+	console.log(equaliserFrequencies[i]);
+
+};
+
+// biquadFilter.type = "peaking";
+// biquadFilter.frequency.value = slider1Input.value;
+// biquadFilter.Q.value = 1;
+// biquadFilter.gain.value = 24;
+
+//audio settings
+audio.src = "audio/Phoenix.wav"; 
+audio.controls = true; 
+audio.loop = true;
+audio.autoplay = true; 
 
 
-//Audio specificeren:
-audio.src = "audio/Phoenix.wav"; //Het liedje.
-audio.controls = true; //Standaard audio knoppen.
-audio.loop = true; //Liedje afgelopen? Dan begint hij opnieuw.
-audio.autoplay = true; //Stelt dat de audio niet begint met lopen wanneer de pagina wordt geopend.
+//////////////////////////////////////////
+//	EVENT LISTENERS
+//////////////////////////////////////////
 
 window.addEventListener("load", initAudioPlayer, false); //Stelt: als de pagina geladen is, voer dan de functie "initAudioPlayer" uit.
 
-//range slider output display
-
-
-
-
+//range slider inputs to equaliser nodes
 slider1Input.addEventListener('input', function () {
-	slider1Output.innerHTML = slider1Input.value;
-	biquadFilter.frequency.value = slider1Input.value;
-	console.log(biquadFilter.frequency.value);
+	equaliserNodes[0].gain.value = slider1Input.value;
+	console.log(equaliserNodes[0].gain.value);
 }, false);
 
 
@@ -88,7 +117,6 @@ function initAudioPlayer(){
 	equaliserNodes[8].connect(equaliserNodes[9]);
 	equaliserNodes[9].connect(analyser);
 	analyser.connect(audioCtx.destination);
-
 
 	frameLooper(); //Runt de functie frameLooper.
 }
