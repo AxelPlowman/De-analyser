@@ -25,12 +25,16 @@ main {
   border-radius: 4px;
   box-shadow: 0px 6px 15px rgba(0,0,0,0.4);
   margin: 20px auto;
+  text-align: left;
 }
 
 .equaliserSliders {
-  text-align: center;
-  margin: 0 auto;
-  display: inline-block;
+  margin-left: ;
+}
+.equaliserSliders > button {
+  position: relative;
+  top: -95px;
+  left: 5px;
 }
 .equaliserSliders > input {
     -webkit-appearance: slider-vertical;
@@ -44,13 +48,13 @@ main {
 .freqList {
   margin: 0;
   padding: 0;
-  text-align: center;
+  margin-left: 2px;
 }
 ul.freqList li {
   font-size: 0.8rem;
   margin: 0;
   display: inline-block;
-  width: 42px;
+  width: 41px;
 }
 
 
