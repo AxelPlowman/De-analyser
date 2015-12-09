@@ -104,28 +104,28 @@ document.querySelector(".resetButton").addEventListener('click', function () {
 
 
 //De hierboven aangeroepen functie:
-function initAudioPlayer(){
+
 	//document.getElementById("audioBox").appendChild(player); //Stelt dat de hierboven gemaakte audio in de audioBox van het HTML-bestand gaat.
 
 	//Hieronder wordt de boel met elkaar geconnect: 
 	
 
-	// audiopath
-	source.connect(equaliserNodes[0]);
-	equaliserNodes[0].connect(equaliserNodes[1]);
-	equaliserNodes[1].connect(equaliserNodes[2]);
-	equaliserNodes[2].connect(equaliserNodes[3]);
-	equaliserNodes[3].connect(equaliserNodes[4]);
-	equaliserNodes[4].connect(equaliserNodes[5]);
-	equaliserNodes[5].connect(equaliserNodes[6]);
-	equaliserNodes[6].connect(equaliserNodes[7]);
-	equaliserNodes[7].connect(equaliserNodes[8]);
-	equaliserNodes[8].connect(equaliserNodes[9]);
-	equaliserNodes[9].connect(analyser);
-	analyser.connect(audioCtx.destination);
+// audiopath
+source.connect(equaliserNodes[0]);
+equaliserNodes[0].connect(equaliserNodes[1]);
+equaliserNodes[1].connect(equaliserNodes[2]);
+equaliserNodes[2].connect(equaliserNodes[3]);
+equaliserNodes[3].connect(equaliserNodes[4]);
+equaliserNodes[4].connect(equaliserNodes[5]);
+equaliserNodes[5].connect(equaliserNodes[6]);
+equaliserNodes[6].connect(equaliserNodes[7]);
+equaliserNodes[7].connect(equaliserNodes[8]);
+equaliserNodes[8].connect(equaliserNodes[9]);
+equaliserNodes[9].connect(analyser);
+analyser.connect(audioCtx.destination);
 
-	frameLooper(); //Runt de functie frameLooper.
-}
+
+
 
 
 
