@@ -17,9 +17,10 @@ analyser = audioCtx.createAnalyser();
 analyser.FFTSize = 2048; //sets analyser's FFTSize-property
 
 //biquadFilter settings
-biquadFilter.type = "lowpass";
+biquadFilter.type = "peaking";
 biquadFilter.frequency.value = sliderInput.value;
 biquadFilter.Q.value = 25;
+biquadFilter.gain.value = 12;
 console.log("filtertype=" + biquadFilter.type + ", frequency=" + biquadFilter.frequency.value + ", Q-value=" + biquadFilter.Q.value);
 
 
