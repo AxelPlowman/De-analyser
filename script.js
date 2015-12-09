@@ -32,7 +32,8 @@ function initAudioPlayer(){
 	source = audioCtx.createMediaElementSource(audio); 
 
 	// audiopath
-	source.connect(biQuadfilter);
+	source.connect(biquadFilter);
+
 	analyser.connect(audioCtx.destination);
 
 
