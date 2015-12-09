@@ -85,12 +85,11 @@ audio.autoplay = true;
 window.addEventListener("load", initAudioPlayer, false); //Stelt: als de pagina geladen is, voer dan de functie "initAudioPlayer" uit.
 
 //range slider inputs to equaliser nodes
-document.querySelector(".equaliserSliders").addEventListener('input', function () {
+document.querySelector(".equaliserSliders").addEventListener('input change', function () {
 	for (var i = 0; i < equaliserNodes.length; i++) {
 		equaliserNodes[i].gain.value = document.querySelector(sliderIDList[i]).value;
 		console.log(equaliserNodes[i].gain.value);
 	};
-	
 }, false);
 
 
