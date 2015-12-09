@@ -7,9 +7,9 @@ var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canva
 	
 
 	//variables to be filled later on:
-	analyser, source, context, fbcArray, bars, barX, barWidth, barHeight;
+	analyser, source, fbcArray, bars, barX, barWidth, barHeight;
 
-analyser = context.createAnalyser();
+analyser = audioCtx.createAnalyser();
 analyser.FFTSize = 2048; //sets analyser's FFTSize-property
 
 
@@ -29,11 +29,11 @@ function initAudioPlayer(){
 	document.getElementById("audioBox").appendChild(audio); //Stelt dat de hierboven gemaakte audio in de audioBox van het HTML-bestand gaat.
 
 	//Hieronder wordt de boel met elkaar geconnect: 
-	source = context.createMediaElementSource(audio); 
+	source = audioCtx.createMediaElementSource(audio); 
 
 	// audiopath
 	source.connect(biQuadfilter);
-	analyser.connect(context.destination);
+	analyser.connect(audioCtx.destination);
 
 
 	frameLooper(); //Runt de functie frameLooper.
