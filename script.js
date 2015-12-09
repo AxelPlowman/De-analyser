@@ -153,6 +153,11 @@ var SoundCloudAudioSource = function(audioElement) {
                 player.play();
             });
         });
+        SC.get('/tracks', {
+  			q: 'buskers', license: 'cc-by-sa'
+		}).then(function(tracks) {
+  			console.log(tracks);
+		});
     };
     frameLooper();
 };
