@@ -2,7 +2,6 @@
 <html>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="http://connect.soundcloud.com/sdk.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="normalize.css">
 	<link rel="stylesheet" type="text/css" href="main.css">
@@ -11,19 +10,24 @@
 	<title>It's peanuts! Visual Audio Mixer</title>
 </head>
 
-<body>
+<body id="body">
 	<main>
-		<div class="filter">
-			<input id="freqSlider" type="range" min="20" max="20000" step="10" />
-			<input id="qSlider" type="range" min="1" max="100" step="1" />
-		</div>
+
 		<div id="audioPlayer">
-  	    	<audio id="player" controls="true"></audio>
-  	    	<input id="input" placeholder="Paste Soundcloud URL here (https://soundcloud.com/artist/track)">
-            <button id="submit">Play!</button><br>
-  	    </div>	
-		
+  			<div id="audioBox"></div>
+		</div>
+
+		<div id="visuals">
+			<canvas id="analyserRender"></canvas>
+		</div>
+
+		<div id="visuals2">
+			<canvas id="analyserRender"></canvas>
+		</div>
+
 	</main>
+
 	<script type="text/javascript" src="script.js"></script>
+
 </body>
 </html>
