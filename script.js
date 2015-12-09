@@ -33,7 +33,7 @@ function initAudioPlayer(){
 
 	// audiopath
 	source.connect(biquadFilter);
-
+	biquadFilter.connect(analyser);
 	analyser.connect(audioCtx.destination);
 
 
