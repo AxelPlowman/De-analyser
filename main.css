@@ -1,5 +1,32 @@
 /* 
 -------------------------------------------------------------
+  SLIDER STYLE
+-------------------------------------------------------------
+*/ 
+.equaliser {
+  border: 1px solid red;
+  text-align: center;
+}
+
+.equaliserSliders {
+  text-align: center;
+  border: 1px solid black;
+  margin: 0 auto;
+  display: inline-block;
+}
+.equaliserSliders > input {
+    -webkit-appearance: slider-vertical;
+    width: 20px;
+    height: 100px;
+    margin-left: 20px;
+ }
+.equaliserSliders > input:first-child {
+  margin-left: 0;
+}
+
+
+/* 
+-------------------------------------------------------------
   MAIN STYLE
 -------------------------------------------------------------
 */ 
