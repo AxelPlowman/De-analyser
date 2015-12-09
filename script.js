@@ -6,6 +6,7 @@ var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canva
 	audio = new Audio(), //creates new <audio>
 
 	audioCtx = new AudioContext(),
+	source = audioCtx.createMediaElementSource(audio);
 
 	//creates an analyser node
 	analyser = audioCtx.createAnalyser();
@@ -107,7 +108,7 @@ function initAudioPlayer(){
 	document.getElementById("audioBox").appendChild(audio); //Stelt dat de hierboven gemaakte audio in de audioBox van het HTML-bestand gaat.
 
 	//Hieronder wordt de boel met elkaar geconnect: 
-	source = audioCtx.createMediaElementSource(audio); 
+	
 
 	// audiopath
 	source.connect(equaliserNodes[0]);
