@@ -4,10 +4,13 @@ var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canva
 
 	audioCtx = new AudioContext(),
 	biquadFilter = audioCtx.createBiquadFilter(),
+	sliderInput = document.querySelector('.filterFreqIn'),
+	sliderOutput = document.querySelector('.filterFreqOut'),
 	
 
 	//variables to be filled later on:
 	analyser, source, fbcArray, bars, barX, barWidth, barHeight;
+
 
 //analyser settings
 analyser = audioCtx.createAnalyser();
@@ -15,7 +18,7 @@ analyser.FFTSize = 2048; //sets analyser's FFTSize-property
 
 //biquadFilter settings
 biquadFilter.type = "lowpass";
-biquadFilter.frequency.value = 1000;
+biquadFilter.frequency.value = sliderInput.value;
 biquadFilter.Q.value = 25;
 console.log("filtertype=" + biquadFilter.type + ", frequency=" + biquadFilter.frequency.value + ", Q-value=" + biquadFilter.Q.value);
 
@@ -27,6 +30,14 @@ audio.loop = true; //Liedje afgelopen? Dan begint hij opnieuw.
 audio.autoplay = true; //Stelt dat de audio niet begint met lopen wanneer de pagina wordt geopend.
 
 window.addEventListener("load", initAudioPlayer, false); //Stelt: als de pagina geladen is, voer dan de functie "initAudioPlayer" uit.
+
+//filter range slider
+sliderOutput.innerHTML = sliderInput.value;
+sliderInput.addEventListener('input', function () {
+	sliderOutput.innerHTML = sliderInput.value;
+	biquadFilter.frequency.value = sliderInput.value;
+	console.log(biquadFilter.frequency.value);
+}, false);
 
 
 
