@@ -17,7 +17,7 @@ analyser.FFTSize = 2048; //sets analyser's FFTSize-property
 biquadFilter.type = "lowpass";
 biquadFilter.frequency.value = 1000;
 biquadFilter.Q.value = 25;
-console.log("filtertype="biquadFilter.type + ", frequency=" + biquadFilter.frequency.value + ", Q-value=" + biquadFilter.Q.value);
+console.log("filtertype=" + biquadFilter.type + ", frequency=" + biquadFilter.frequency.value + ", Q-value=" + biquadFilter.Q.value);
 
 
 //Audio specificeren:
