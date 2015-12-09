@@ -2,7 +2,7 @@
 <html>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
+	<script src="http://connect.soundcloud.com/sdk.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="normalize.css">
 	<link rel="stylesheet" type="text/css" href="main.css">
@@ -43,8 +43,10 @@
 
 
 		<div id="audioPlayer">
-  			<div id="audioBox"></div>
-		</div>
+  	    	<audio id="player" controls="true"></audio>
+  	    	<input id="input" placeholder="Paste Soundcloud URL here (https://soundcloud.com/artist/track)">
+            <button id="submit">Play!</button><br>
+  	    </div>
 
 		<div id="visuals">
 			<canvas id="analyserRender"></canvas>

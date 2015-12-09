@@ -3,10 +3,10 @@
 //////////////////////////////////////////
 var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand 
 	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
-	audio = new Audio(), //creates new <audio>
+	player = new Audio(), //creates new <audio>
 
 	audioCtx = new AudioContext(),
-	source = audioCtx.createMediaElementSource(audio);
+	source = audioCtx.createMediaElementSource(player);
 
 	//creates an analyser node
 	analyser = audioCtx.createAnalyser();
@@ -54,7 +54,7 @@ var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canva
 	];
 
 	//variables to be filled later on:
-var source, fbcArray, bars, barX, barWidth, barHeight;
+var fbcArray, bars, barX, barWidth, barHeight;
 
 
 //////////////////////////////////////////
@@ -73,10 +73,10 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 };
 
 //audio settings
-audio.src = "audio/Phoenix.wav"; 
-audio.controls = true; 
-audio.loop = true;
-audio.autoplay = true; 
+// audio.src = "audio/Phoenix.wav"; 
+// audio.controls = true; 
+// audio.loop = true;
+// audio.autoplay = true; 
 
 
 //////////////////////////////////////////
@@ -105,7 +105,7 @@ document.querySelector(".resetButton").addEventListener('click', function () {
 
 //De hierboven aangeroepen functie:
 function initAudioPlayer(){
-	document.getElementById("audioBox").appendChild(audio); //Stelt dat de hierboven gemaakte audio in de audioBox van het HTML-bestand gaat.
+	//document.getElementById("audioBox").appendChild(player); //Stelt dat de hierboven gemaakte audio in de audioBox van het HTML-bestand gaat.
 
 	//Hieronder wordt de boel met elkaar geconnect: 
 	
@@ -127,6 +127,51 @@ function initAudioPlayer(){
 	frameLooper(); //Runt de functie frameLooper.
 }
 
+
+
+
+
+var SoundCloudAudioSource = function(audioElement) {
+    //var player = document.getElementById(audioElement);
+    player.crossOrigin = 'Anonymous';
+    var self = this;
+    self.streamData = new Uint8Array(128);
+  
+    //var source = audioCtx.createMediaElementSource(player);
+    //source.connect(analyser);
+    //analyser.connect(audioCtx.destination);
+
+    this.loadStream = function(track_url) {
+        var clientID = "00856b340598a8c7e317e1f148b5a13c";
+
+        SC.initialize({
+            client_id: clientID
+        });
+        SC.get('/resolve', { url: track_url }, function(track) {
+            SC.get('/tracks/' + track.id, {}, function(sound, error) {
+                player.setAttribute('src', sound.stream_url + '?client_id=' + clientID);
+                player.play();
+            });
+        });
+    };
+    frameLooper();
+};
+
+    var audioSource = new SoundCloudAudioSource('player');
+    var submitButton = document.getElementById('submit');
+    submitButton.onclick = function() {
+        var track_url = document.getElementById('input').value;
+        audioSource.loadStream(track_url);
+    };
+
+
+
+
+
+
+//////////////////////////////////////////
+//	VISUALS
+//////////////////////////////////////////
 //Hieronder de frameLooperfunctie. Deze geeft de animaties op basis van de audiofrequentie.
 function frameLooper(){
 	window.requestAnimationFrame(frameLooper); //Creërt een loop voor de animatie.
