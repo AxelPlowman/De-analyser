@@ -5,7 +5,7 @@ var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canva
 	audioCtx = new AudioContext(),
 	biquadFilter = audioCtx.createBiquadFilter(),
 	analyser = context.createAnalyser(),
-	analyser.FFTSize = 2048,
+	analyser.FFTSize = 2048, //sets analyser's FFTSize-property
 
 	//variables to be filled later on:
 	source, context, fbcArray, bars, barX, barWidth, barHeight;
