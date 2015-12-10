@@ -224,23 +224,40 @@ var SoundCloudAudioSource = function(audioElement) {
 //	VISUALS
 //////////////////////////////////////////
 //Hieronder de frameLooperfunctie. Deze geeft de animaties op basis van de audiofrequentie.
+// function frameLooper(){
+// 	window.requestAnimationFrame(frameLooper); //Creërt een loop voor de animatie.
+// 	fbcArray = new Uint8Array(analyser.frequencyBinCount); //Stopt de audiodata in een array.
+// 	analyser.getByteFrequencyData(fbcArray);
+// 	canvasCtx.clearRect(0, 0, canvas.width, canvas.height); //'Clear' de canvas.
+	
+// 	bars = 30; //Hoeveelheid staven(bars).
+// 	for (var i = 0; i < bars; i++) { //Deze loopt de staven.
+// 		canvasCtx.fillStyle = "hsla("+i*12+", "+50+Math.floor(fbcArray[i]/255*50)+"%, 20%,"+(fbcArray[i]/255)+")";
+// 		barX = i * 3; //Bepaalt de plaats van iederen staaf, zodat ze naast elkaar staan.
+// 		barWidth = 2; //Bepaalt de breedte van de staven.
+// 		barHeight = -(fbcArray[i] / 2);
+// 		if (fbcArray[i] >= 0.5) {barHeight = -(fbcArray[i] * 1)} //Bepaalt de hoogte van de staven op basis van de de audiodata (dus het samplegetal) die in de array is gestopt. 
+// 		//  fillRect( x, y, width, height ) // Explanation of the parameters below
+// 		canvasCtx.fillRect(barX, canvas.height, barWidth, barHeight); //Deze geeft de staven weer.
+// 	};
+// };
+
 function frameLooper(){
 	window.requestAnimationFrame(frameLooper); //Creërt een loop voor de animatie.
 	fbcArray = new Uint8Array(analyser.frequencyBinCount); //Stopt de audiodata in een array.
 	analyser.getByteFrequencyData(fbcArray);
-	canvasCtx.clearRect(0, 0, canvas.width, canvas.height); //'Clear' de canvas.
+	ctx.clearRect(0, 0, canvas.width, canvas.height); //'Clear' de canvas.
 	
 	bars = 30; //Hoeveelheid staven(bars).
 	for (var i = 0; i < bars; i++) { //Deze loopt de staven.
-		canvasCtx.fillStyle = "hsla("+i*12+", "+50+Math.floor(fbcArray[i]/255*50)+"%, 20%,"+(fbcArray[i]/255)+")";
+		ctx.fillStyle = "hsla("+i*12+", "+50+Math.floor(fbcArray[i]/255*50)+"%, 20%,"+(fbcArray[i]/255)+")";
 		barX = i * 3; //Bepaalt de plaats van iederen staaf, zodat ze naast elkaar staan.
-		barWidth = 2; //Bepaalt de breedte van de staven.
+		barWidth = 5; //Bepaalt de breedte van de staven.
 		barHeight = -(fbcArray[i] / 2);
 		if (fbcArray[i] >= 0.5) {barHeight = -(fbcArray[i] * 1)} //Bepaalt de hoogte van de staven op basis van de de audiodata (dus het samplegetal) die in de array is gestopt. 
 		//  fillRect( x, y, width, height ) // Explanation of the parameters below
-		canvasCtx.fillRect(barX, canvas.height, barWidth, barHeight); //Deze geeft de staven weer.
+		ctx.fillRect(barX, canvas.height, barWidth, barHeight); //Deze geeft de staven weer.
 	};
 };
-
 
 
