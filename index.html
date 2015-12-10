@@ -2,13 +2,14 @@
 <html>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript" src="handlebars-v4.0.5.js"></script>
 	<script src="http://connect.soundcloud.com/sdk.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="normalize.css">
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<meta charset="utf-8" />
-	<meta name="author" content="Team Peanut">
-	<title>It's peanuts! Visual Audio Mixer</title>
+	<meta name="author" content="">
+	<title>AudioFX with SoundCloud</title>
 </head>
 
 <body id="body">
@@ -40,6 +41,13 @@
 				<li>16000</li>
 			</ul>
 		</div>
+		<div class="search">
+			<form id="searchForm">
+				<label>Search within SoundCloud:</label>
+				<input id="searchField" type=search placeholder="e.g. Mathew Jonson">
+				<input class="submitQuery" type=button value="search">
+			</form>
+		</div>
 
 
 		<div id="audioPlayer">
@@ -57,8 +65,16 @@
 		</div>
 
 	</main>
-
+	<footer>
+		<section class="footerContent">
+			<a href="https://soundcloud.com/">
+				<div class="poweredBy">
+					<p>powered by</p>
+					<img class="SCLogo"w src="img/soundcloud.png">
+				</div>
+			</a>
+		</section>
+	</footer>
 	<script type="text/javascript" src="script.js"></script>
-
 </body>
 </html>

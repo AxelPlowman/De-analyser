@@ -3,7 +3,7 @@
 //////////////////////////////////////////
 var canvas = document.getElementById("analyserRender"), //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand 
 	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
-	player = new Audio(), //creates new <audio>
+	//player = new Audio(), //creates new <audio>
 
 	audioCtx = new AudioContext(),
 	source = audioCtx.createMediaElementSource(player);
@@ -69,7 +69,6 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 	equaliserNodes[i].Q.value = 1;
 	equaliserNodes[i].frequency.value = equaliserFrequencies[i];
 	equaliserNodes[i].gain.value = 0;
-	console.log(equaliserFrequencies[i]);
 };
 
 //audio settings
@@ -128,18 +127,72 @@ analyser.connect(audioCtx.destination);
 
 
 
+//////////////////////////////////////////
+//	SOUNDCLOUD
+//////////////////////////////////////////
+var searchQuery,
+	maxResultsAmount= 20,
+	searchResults = {
+		header: 'Search Results',
+		songs: []
+	};
 
 
+
+
+
+// document.querySelector(".submitQuery").addEventListener('click', function () {
+// 	var userInput = document.querySelector("#searchField").value;
+// 	if (userInput.length === 0) {
+// 		alert('Please fill in something!');
+// 	} 
+// 	else {
+// 	searchQuery = userInput.replace(/ /g, "%20").toLowerCase();
+// 	console.log('"' + searchQuery + '" was submitted');
+// 	soundcloudRequest();	
+// 	}
+// });
+
+
+
+// function soundcloudRequest() {
+// 	method = "GET";
+// 	requestURL = 'https://api.soundcloud.com/tracks?client_id=00856b340598a8c7e317e1f148b5a13c&limit=' + maxResultsAmount + '&q=' + searchQuery;
+// 	xhr = new XMLHttpRequest()
+// 	xhr.open(method, requestURL, true);
+// 	xhr.send();
+// 	xhr.onreadystatechange = function() {
+// 		if (xhr.readyState === 4) {
+// 			var APIResponse = JSON.parse(xhr.responseText);
+// 			console.log(APIResponse);
+
+// 			for (var i=0; i<APIResponse.length; i++){
+// 				songInfo = new Object();
+// 				songInfo.title = (APIResponse[i].title);
+// 				songInfo.url = (APIResponse[i].permalink_url);
+// 				songInfo.uploader = (APIResponse[i].user.username);
+// 				searchResults['songs'].push(songInfo);
+// 			};
+// 			console.log(APIResponse.length);
+// 			console.log(searchResults);
+// 		};
+// 	};
+// };
+
+
+
+
+var xhr = new XMLHttpRequest();
 
 var SoundCloudAudioSource = function(audioElement) {
-    //var player = document.getElementById(audioElement);
+    var player = document.getElementById(audioElement);
     player.crossOrigin = 'Anonymous';
     var self = this;
     self.streamData = new Uint8Array(128);
   
-    //var source = audioCtx.createMediaElementSource(player);
-    //source.connect(analyser);
-    //analyser.connect(audioCtx.destination);
+    
+    // source.connect(analyser);
+    // analyser.connect(audioCtx.destination);
 
     this.loadStream = function(track_url) {
         var clientID = "00856b340598a8c7e317e1f148b5a13c";
@@ -153,11 +206,6 @@ var SoundCloudAudioSource = function(audioElement) {
                 player.play();
             });
         });
-        SC.get('/tracks', {
-  			q: 'buskers', license: 'cc-by-sa'
-		}).then(function(tracks) {
-  			console.log(tracks);
-		});
     };
     frameLooper();
 };
@@ -168,8 +216,6 @@ var SoundCloudAudioSource = function(audioElement) {
         var track_url = document.getElementById('input').value;
         audioSource.loadStream(track_url);
     };
-
-
 
 
 
