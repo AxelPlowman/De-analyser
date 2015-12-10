@@ -88,10 +88,10 @@ ul.freqList li {
   margin-left:500px;
 }
 
-.visuals1 {
-  position: absolute;*/
-  -webkit-box-reflect: below 5px -webkit-linear-gradient(top, transparent, transparent 50%, rgba(255,255,255,0.2));
-}
+/*.visuals1 {*/
+/*  position: absolute;*/
+/*  -webkit-box-reflect: below 5px -webkit-linear-gradient(top, transparent, transparent 50%, rgba(255,255,255,0.2));*/
+/*}*/
 
 #visuals1 {
     padding-left: 0;
@@ -99,9 +99,9 @@ ul.freqList li {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    width: 800px;
+    transform: translateX(300px) translateY(40px) /*rotateX(-30deg) rotateY(30deg)*/;
+    height:450px;
 
-transform: translateX(-350px) rotateX(-30deg) rotateY(30deg);
 margin: auto;
 }
 

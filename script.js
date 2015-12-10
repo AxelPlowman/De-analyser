@@ -253,8 +253,8 @@ function frameLooper(){
 		canvasCtx.fillStyle = "hsla("+i*12+", "+50+Math.floor(fbcArray[i]/255*50)+"%, 20%,"+(fbcArray[i]/255)+")";
 		barX = i * 3; //Bepaalt de plaats van iederen staaf, zodat ze naast elkaar staan.
 		barWidth = 5; //Bepaalt de breedte van de staven.
-		barHeight = -(fbcArray[i] / 2);
-		if (fbcArray[i] >= 0.5) {barHeight = -(fbcArray[i] * 1)} //Bepaalt de hoogte van de staven op basis van de de audiodata (dus het samplegetal) die in de array is gestopt. 
+		barHeight = -(fbcArray[i]);
+		if (fbcArray[i] >= 0.5) {barHeight = -(fbcArray[i] * 0.5)} //Bepaalt de hoogte van de staven op basis van de de audiodata (dus het samplegetal) die in de array is gestopt. 
 		//  fillRect( x, y, width, height ) // Explanation of the parameters below
 		canvasCtx.fillRect(barX, canvas.height, barWidth, barHeight); //Deze geeft de staven weer.
 	};
