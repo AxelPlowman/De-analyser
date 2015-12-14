@@ -41,13 +41,13 @@
 				<li>16000</li>
 			</ul>
 		</div>
-		<!-- <div class="search">
+	    <div class="search">
 			<form id="searchForm">
 				<label>Search within SoundCloud:</label>
 				<input id="searchField" type=search placeholder="e.g. Mathew Jonson">
 				<input class="submitQuery" type=button value="search">
 			</form>
-		</div> -->
+		</div>
 
 		<div id="audioPlayer">
   	    	<audio id="player" controls="true"></audio>
@@ -58,16 +58,25 @@
   		<canvas id="visuals1"></canvas>
   		<canvas id="visuals2"></canvas>
 	</main>
+	<aside>
+		<ul id="listSongs">
+		</ul>
+	</aside>
 	<footer>
 		<section class="footerContent">
 			<a href="https://soundcloud.com/">
 				<div class="poweredBy">
 					<p>powered by</p>
-					<img class="SCLogo"w src="img/soundcloud.png">
+					<img class="SCLogo" src="img/soundcloud.png">
 				</div>
 			</a>
 		</section>
 	</footer>
+	<script id="list-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <li> {{title}} </li>
+        {{/each}}
+    </script>
 	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>
