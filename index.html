@@ -13,6 +13,10 @@
 </head>
 
 <body id="body">
+	<aside id="aside">
+		<ul id="listSongs">
+		</ul>
+	</aside>
 	<main>
 		<div class="equaliser">
 			<form class="equaliserSliders">
@@ -58,10 +62,6 @@
   		<canvas id="visuals1"></canvas>
   		<canvas id="visuals2"></canvas>
 	</main>
-	<aside>
-		<ul id="listSongs">
-		</ul>
-	</aside>
 	<footer>
 		<section class="footerContent">
 			<a href="https://soundcloud.com/">
@@ -74,9 +74,10 @@
 	</footer>
 	<script id="list-template" type="text/x-handlebars-template">
         {{#each this}}
-        <li> {{title}} </li>
+        <li> {{title}} -> {{url}} </li>
         {{/each}}
     </script>
 	<script type="text/javascript" src="script.js"></script>
+	
 </body>
 </html>

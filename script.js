@@ -158,27 +158,29 @@ document.querySelector(".submitQuery").addEventListener('click', function () {
 function soundcloudRequest() {
 	method = "GET";
 	requestURL = 'https://api.soundcloud.com/tracks?client_id=00856b340598a8c7e317e1f148b5a13c&limit=' + maxResultsAmount + '&q=' + searchQuery;
-	xhr = new XMLHttpRequest()
+	xhr = new XMLHttpRequest();
 	xhr.open(method, requestURL, true);
 	xhr.send();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			var APIResponse = JSON.parse(xhr.responseText);
 			console.log(APIResponse);
-
+			searchResults.songs = [];
 			for (var i=0; i<APIResponse.length; i++){
 				songInfo = new Object();
 				songInfo.title = (APIResponse[i].title);
 				songInfo.url = (APIResponse[i].permalink_url);
 				songInfo.uploader = (APIResponse[i].user.username);
-				searchResults['songs'].push(songInfo);
+				searchResults.songs.push(songInfo);
 			};
 			console.log(APIResponse.length);
 			console.log(searchResults);
 			
+            $("#listSongs li").remove();            
 			var theTemplateScript = $("#list-template").html(); 
             var theTemplate = Handlebars.compile(theTemplateScript); 
-            $("#listSongs").append(theTemplate(searchResults.songs)); 
+            $("#listSongs").append(theTemplate(searchResults.songs));
+
 		};
 	};
 };
