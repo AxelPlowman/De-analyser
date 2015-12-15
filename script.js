@@ -5,7 +5,7 @@ var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gel
 	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
 	//player1 = new Audio(), //creates new <audio>
     player1 = document.getElementById("player1"),
-    PBSpeedDeck1 = 1;
+    PBSpeedDeck1 = ,
 	audioCtx = new AudioContext(),
 	source = audioCtx.createMediaElementSource(player1),
     
@@ -73,10 +73,11 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 };
 
 //audio settings
-// audio.src = "audio/Phoenix.wav"; 
-// audio.controls = true; 
-// audio.loop = true;
-// audio.autoplay = true; 
+player1.preservesPitch = false;
+player1.webkitPreservesPitch = false;
+player1.mozPreservesPitch = false;
+
+
 
 
 //////////////////////////////////////////
