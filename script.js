@@ -147,8 +147,6 @@ document.querySelector(".submitQuery").addEventListener('click', function () {
 	searchQuery = userInput.replace(/ /g, "%20").toLowerCase();
 	console.log('"' + searchQuery + '" was submitted');
 	soundcloudRequest();
-	document.getElementById('moreResults').style = "visibility:visible";
-	document.getElementById('searchHeader').style = "visibility:visible";
 	}
 });
 
@@ -171,16 +169,25 @@ function soundcloudRequest() {
 				songInfo.url = (APIResponse[i].permalink_url);
 				songInfo.uploader = (APIResponse[i].user.username);
 				searchResults.songs.push(songInfo);
-			};
+			}
 			console.log(APIResponse.length);
 			console.log(searchResults);
             $("#listSongs li").remove();
 			var theTemplateScript = $("#list-template").html(); 
             var theTemplate = Handlebars.compile(theTemplateScript); 
             $("#listSongs").append(theTemplate(searchResults.songs));
-		};
+            
+            document.getElementById('searchHeader').style = "visibility:visible";
+            if (searchResults.songs.length === 0) {
+                document.getElementById('searchHeader').textContent = "Search results: no results";
+            }
+            else {
+                document.getElementById('moreResults').style = "visibility:visible";
+                document.getElementById('searchHeader').textContent = "Search results: " + searchResults.songs.length + " results";
+            }
+		}
 	};
-};
+}
 
 player.addEventListener('error', function(e) {
     var noSourceLoaded = (this.networkState===HTMLMediaElement.NETWORK_NO_SOURCE);
