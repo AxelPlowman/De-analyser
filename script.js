@@ -146,7 +146,9 @@ document.querySelector(".submitQuery").addEventListener('click', function () {
 	else {
 	searchQuery = userInput.replace(/ /g, "%20").toLowerCase();
 	console.log('"' + searchQuery + '" was submitted');
-	soundcloudRequest();	
+	soundcloudRequest();
+	document.getElementById('moreResults').style = "visibility:visible";
+	document.getElementById('searchHeader').style = "visibility:visible";
 	}
 });
 
@@ -180,9 +182,14 @@ function soundcloudRequest() {
 	};
 };
 
+player.addEventListener('error', function(e) {
+    var noSourceLoaded = (this.networkState===HTMLMediaElement.NETWORK_NO_SOURCE);
+    if(noSourceLoaded) window.alert("Sorry, this one is blocked (copyright), please try another one");
+}, true);
 
 // var xhr = new XMLHttpRequest();
 
+//Vraagt toestemming aan de soundcloud om het liedje af te spelen, etc.
 var SoundCloudAudioSource = function(audioElement) {
     player.crossOrigin = 'Anonymous';
     var self = this;
@@ -200,17 +207,14 @@ var SoundCloudAudioSource = function(audioElement) {
                 player.play();
             });
         });
-        if(player.paused) {
-            window.alert("Sorry, this one is blocked (copyright), please try another one");
-        }
     };
     frameLooper();
 };
 
+//"Load & Play" knop:
 audioSource = new SoundCloudAudioSource(player);
 var loadPlayButton = function(songNumber) {
         var urlSong = searchResults.songs[songNumber].url;
-        console.log(urlSong);
         audioSource.loadStream(urlSong);
     };    
 
