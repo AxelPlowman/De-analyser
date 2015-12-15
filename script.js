@@ -176,7 +176,6 @@ function soundcloudRequest() {
 			var theTemplateScript = $("#list-template").html(); 
             var theTemplate = Handlebars.compile(theTemplateScript); 
             $("#listSongs").append(theTemplate(searchResults.songs));
-
 		};
 	};
 };
@@ -201,6 +200,9 @@ var SoundCloudAudioSource = function(audioElement) {
                 player.play();
             });
         });
+        if(player.paused) {
+            window.alert("Sorry, this one is blocked (copyright), please try another one");
+        }
     };
     frameLooper();
 };
@@ -211,8 +213,6 @@ var loadPlayButton = function(songNumber) {
         console.log(urlSong);
         audioSource.loadStream(urlSong);
     };    
-
-
 
 //////////////////////////////////////////
 //	VISUALS
@@ -241,7 +241,7 @@ function frameLooper(){
 	fbcArray = new Uint8Array(analyser.frequencyBinCount); //Stopt de audiodata in een array.
 	analyser.getByteFrequencyData(fbcArray);
 	canvasCtx.clearRect(0, 0, canvas.width, canvas.height); //'Clear' de canvas.
-	
+
 	bars = 30; //Hoeveelheid staven(bars).
 	for (var i = 0; i < bars; i++) { //Deze loopt de staven.
 		canvasCtx.fillStyle = "hsla("+i*12+", "+50+Math.floor(fbcArray[i]/255*50)+"%, 20%,"+(fbcArray[i]/255)+")";
