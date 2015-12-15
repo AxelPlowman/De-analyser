@@ -4,7 +4,7 @@
 var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand 
 	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
 	//player = new Audio(), //creates new <audio>
-    player = document.getElementById("player"),
+    player = document.getElementById("player1"),
     PBSpeedDeck1 = 1;
 	audioCtx = new AudioContext(),
 	source = audioCtx.createMediaElementSource(player),

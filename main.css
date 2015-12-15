@@ -71,7 +71,7 @@ ul.freqList li {
   VISUALS STYLE
 -------------------------------------------------------------
 */ 
-#audioPlayer {
+/*#audioPlayer {
   width: 800px; 
   height: 30px; 
   background: #000; 
@@ -83,15 +83,15 @@ ul.freqList li {
   width: 800px;
   background: #000;
   float: left;
-}
+}*/
 
-#audioPlayer canvas {
+/*#audioPlayer canvas {
      
   width: 1000px; 
   height: 250px; 
   padding: 50px; 
   margin-left:500px;
-}
+}*/
 
 /*.visuals1 {*/
 /*  position: absolute;*/
