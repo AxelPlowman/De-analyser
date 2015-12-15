@@ -3,11 +3,11 @@
 //////////////////////////////////////////
 var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand 
 	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
-	//player = new Audio(), //creates new <audio>
-    player = document.getElementById("player1"),
+	//player1 = new Audio(), //creates new <audio>
+    player1 = document.getElementById("player1"),
     PBSpeedDeck1 = 1;
 	audioCtx = new AudioContext(),
-	source = audioCtx.createMediaElementSource(player),
+	source = audioCtx.createMediaElementSource(player1),
     
 	//creates an analyser node
 	analyser = audioCtx.createAnalyser(),
@@ -83,7 +83,7 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 //	EVENT LISTENERS
 //////////////////////////////////////////
 
-//window.addEventListener("load", initAudioPlayer, false); //Stelt: als de pagina geladen is, voer dan de functie "initAudioPlayer" uit.
+//window.addEventListener("load", initAudioplayer1, false); //Stelt: als de pagina geladen is, voer dan de functie "initAudioplayer1" uit.
 
 //range slider inputs to equaliser nodes
 document.querySelector(".equaliserSliders").addEventListener('input', function () {
@@ -103,14 +103,14 @@ document.querySelector(".resetButton").addEventListener('click', function () {
 //range slider inputs to playbackSpeed
 document.querySelector("#tempoDeck1").addEventListener('input', function () {
 	PBSpeedDeck1 = document.querySelector('#tempoDeck1').value;
-	player.playbackRate = document.querySelector('#tempoDeck1').value;
-	console.log("player.playbackRate = " + player.playbackRate);
+	player1.playbackRate = document.querySelector('#tempoDeck1').value;
+	console.log("player1.playbackRate = " + player1.playbackRate);
 }, false);
 
 
 //De hierboven aangeroepen functie:
 
-	//document.getElementById("audioBox").appendChild(player); //Stelt dat de hierboven gemaakte audio in de audioBox van het HTML-bestand gaat.
+	//document.getElementById("audioBox").appendChild(player1); //Stelt dat de hierboven gemaakte audio in de audioBox van het HTML-bestand gaat.
 
 	//Hieronder wordt de boel met elkaar geconnect: 
 	
@@ -195,7 +195,7 @@ function soundcloudRequest() {
 	};
 }
 
-player.addEventListener('error', function(e) {
+player1.addEventListener('error', function(e) {
     var noSourceLoaded = (this.networkState===HTMLMediaElement.NETWORK_NO_SOURCE);
     if(noSourceLoaded) window.alert("Sorry, this one is blocked (copyright), please try another one");
 }, true);
@@ -204,7 +204,7 @@ player.addEventListener('error', function(e) {
 
 //Vraagt toestemming aan de soundcloud om het liedje af te spelen, etc.
 var SoundCloudAudioSource = function(audioElement) {
-    player.crossOrigin = 'Anonymous';
+    player1.crossOrigin = 'Anonymous';
     var self = this;
     self.streamData = new Uint8Array(128);
   
@@ -216,8 +216,8 @@ var SoundCloudAudioSource = function(audioElement) {
         });
         SC.get('/resolve', { url: urlSong }, function(track) {
             SC.get('/tracks/' + track.id, {}, function(sound, error) {
-                player.setAttribute('src', sound.stream_url + '?client_id=' + clientID);
-                player.play();
+                player1.setAttribute('src', sound.stream_url + '?client_id=' + clientID);
+                player1.play();
             });
         });
     };
@@ -225,7 +225,7 @@ var SoundCloudAudioSource = function(audioElement) {
 };
 
 //"Load & Play" knop:
-audioSource = new SoundCloudAudioSource(player);
+audioSource = new SoundCloudAudioSource(player1);
 var loadPlayButton = function(songNumber) {
         var urlSong = searchResults.songs[songNumber].url;
         audioSource.loadStream(urlSong);
