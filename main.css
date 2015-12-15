@@ -59,7 +59,12 @@ ul.freqList li {
   display: inline-block;
   width: 41px;
 }
-
+.tempoSlider{
+    -webkit-appearance: slider-vertical;
+    width: 20px;
+    height: 100px;
+    margin-left: 20px;
+ }
 
 /* 
 -------------------------------------------------------------

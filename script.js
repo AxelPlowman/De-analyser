@@ -5,6 +5,7 @@ var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gel
 	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
 	//player = new Audio(), //creates new <audio>
     player = document.getElementById("player"),
+    PBSpeedDeck1 = 1;
 	audioCtx = new AudioContext(),
 	source = audioCtx.createMediaElementSource(player),
     
@@ -99,7 +100,12 @@ document.querySelector(".resetButton").addEventListener('click', function () {
 	};
 }, false);
 
-
+//range slider inputs to playbackSpeed
+document.querySelector("#tempoDeck1").addEventListener('input', function () {
+	PBSpeedDeck1 = document.querySelector('#tempoDeck1').value;
+	player.playbackRate = document.querySelector('#tempoDeck1').value;
+	console.log("player.playbackRate = " + player.playbackRate);
+}, false);
 
 
 //De hierboven aangeroepen functie:
