@@ -54,9 +54,7 @@
 		</div>
 
 		<div id="audioPlayer">
-  	    	<audio id="player" controls="true" crossOrigin = 'Anonymous'></audio>
-  	    	<input id="input" placeholder="Paste Soundcloud URL here (https://soundcloud.com/artist/track)">
-            <button id="submit">Play!</button><br>
+  	    	<audio id="player" controls="true"></audio>
   	    </div>
   		
   		<canvas id="visuals1"></canvas>
@@ -74,7 +72,7 @@
 	</footer>
 	<script id="list-template" type="text/x-handlebars-template">
         {{#each this}}
-        <li> {{title}} -> {{url}} <button>Load & Play</button></li>
+        <li> {{title}} : <button onclick="loadPlayButton({{@index}})">Load & Play</button></li>
         {{/each}}
     </script>
 	<script type="text/javascript" src="script.js"></script>

@@ -4,10 +4,10 @@
 var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand 
 	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
 	//player = new Audio(), //creates new <audio>
-
+    player = document.getElementById("player"),
 	audioCtx = new AudioContext(),
 	source = audioCtx.createMediaElementSource(player),
-
+    
 	//creates an analyser node
 	analyser = audioCtx.createAnalyser(),
 
@@ -54,7 +54,7 @@ var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gel
 	];
 
 	//variables to be filled later on:
-var fbcArray, bars, barX, barWidth, barHeight;
+var fbcArray, bars, barX, barWidth, barHeight, audioSource;
 
 
 //////////////////////////////////////////
@@ -137,10 +137,6 @@ var searchQuery,
 		songs: []
 	};
 
-
-
-
-
 document.querySelector(".submitQuery").addEventListener('click', function () {
 	var userInput = document.querySelector("#searchField").value;
 	if (userInput.length === 0) {
@@ -186,43 +182,35 @@ function soundcloudRequest() {
 };
 
 
-
-
 // var xhr = new XMLHttpRequest();
 
-// var SoundCloudAudioSource = function(audioElement) {
-//     var player = document.getElementById(audioElement);
-//     player.crossOrigin = 'Anonymous';
-//     var self = this;
-//     self.streamData = new Uint8Array(128);
+var SoundCloudAudioSource = function(audioElement) {
+    player.crossOrigin = 'Anonymous';
+    var self = this;
+    self.streamData = new Uint8Array(128);
   
-    
-//     // source.connect(analyser);
-//     // analyser.connect(audioCtx.destination);
+    this.loadStream = function(urlSong) {
+        var clientID = "00856b340598a8c7e317e1f148b5a13c";
 
-//     this.loadStream = function(track_url) {
-//         var clientID = "00856b340598a8c7e317e1f148b5a13c";
+        SC.initialize({
+            client_id: clientID
+        });
+        SC.get('/resolve', { url: urlSong }, function(track) {
+            SC.get('/tracks/' + track.id, {}, function(sound, error) {
+                player.setAttribute('src', sound.stream_url + '?client_id=' + clientID);
+                player.play();
+            });
+        });
+    };
+    frameLooper();
+};
 
-//         SC.initialize({
-//             client_id: clientID
-//         });
-//         SC.get('/resolve', { url: track_url }, function(track) {
-//             SC.get('/tracks/' + track.id, {}, function(sound, error) {
-//                 player.setAttribute('src', sound.stream_url + '?client_id=' + clientID);
-//                 player.play();
-//             });
-//         });
-//     };
-//     frameLooper();
-// };
-
-//     var audioSource = new SoundCloudAudioSource('player');
-//     var submitButton = document.getElementById('submit');
-//     submitButton.onclick = function() {
-//         var track_url = document.getElementById('input').value;
-//         audioSource.loadStream(track_url);
-//     };
-
+audioSource = new SoundCloudAudioSource(player);
+var loadPlayButton = function(songNumber) {
+        var urlSong = searchResults.songs[songNumber].url;
+        console.log(urlSong);
+        audioSource.loadStream(urlSong);
+    };    
 
 
 
