@@ -54,7 +54,7 @@ var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gel
 	];
 
 	//variables to be filled later on:
-var fbcArray, bars, barX, barWidth, barHeight, audioSource;
+var fbcArray, bars, barX, barWidth, barHeight;
 
 
 //////////////////////////////////////////
@@ -130,8 +130,9 @@ analyser.connect(audioCtx.destination);
 //////////////////////////////////////////
 //	SOUNDCLOUD
 //////////////////////////////////////////
-var searchQuery,
-	maxResultsAmount= 20,
+var audioSource,
+    searchQuery,
+	maxResultsAmount= 15,
 	searchResults = {
 		header: 'Search Results',
 		songs: []
@@ -171,8 +172,7 @@ function soundcloudRequest() {
 			};
 			console.log(APIResponse.length);
 			console.log(searchResults);
-			
-            $("#listSongs li").remove();            
+            $("#listSongs li").remove();
 			var theTemplateScript = $("#list-template").html(); 
             var theTemplate = Handlebars.compile(theTemplateScript); 
             $("#listSongs").append(theTemplate(searchResults.songs));
@@ -213,6 +213,20 @@ var loadPlayButton = function(songNumber) {
         console.log(urlSong);
         audioSource.loadStream(urlSong);
     };    
+
+//Deze functie wordt afgespeeld als er op de "More results" (of "Less results") knop wordt gedrukt.
+var moreResults = function() {
+    if (maxResultsAmount === 15) {
+        maxResultsAmount = 30;
+        soundcloudRequest();
+        document.getElementById('moreResults').textContent = "Less results";
+    }
+    else {
+        maxResultsAmount = 15;
+        soundcloudRequest(); 
+        document.getElementById('moreResults').textContent = "More results";
+    }
+};
 
 //////////////////////////////////////////
 //	VISUALS

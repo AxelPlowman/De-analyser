@@ -14,8 +14,9 @@
 
 <body id="body">
 	<aside id="aside">
-		<ul id="listSongs">
-		</ul>
+	    <h id="searchHeader">Search results:</h>
+		<ul id="listSongs"></ul>
+		<button id="moreResults" onclick="moreResults()">More results</button>
 	</aside>
 	<main>
 		<div class="equaliser">
@@ -72,7 +73,7 @@
 	</footer>
 	<script id="list-template" type="text/x-handlebars-template">
         {{#each this}}
-        <li> {{title}} : <button onclick="loadPlayButton({{@index}})">Load & Play</button></li>
+        <li> {{uploader}}: {{title}} <button onclick="loadPlayButton({{@index}})">Load & Play</button></li>
         {{/each}}
     </script>
 	<script type="text/javascript" src="script.js"></script>
