@@ -95,7 +95,7 @@ var loadPlayButton = function(songNumber) {
 
 document.querySelector(".listPlayButton").addEventListener('click', function () {
 	alert("succes!");
-};
+});
 
 
 //range slider inputs to equaliser nodes
