@@ -25,6 +25,9 @@ var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gel
 		audioCtx.createGain(),
 		audioCtx.createGain()
 	],
+
+
+
 	merger = audioCtx.createChannelMerger(4),
 
 	analyser = audioCtx.createAnalyser(),
@@ -153,9 +156,15 @@ document.querySelector("#tempoDeck2").addEventListener('input', function () {
 
 	//Hieronder wordt de boel met elkaar geconnect: 
 	
+<<<<<<< HEAD
 //////////////////////////////////////////
 //	AUDIO PATH  
 //////////////////////////////////////////
+=======
+
+// audiopath
+
+>>>>>>> 3a161c1b78178803c2cc4416252480091c441918
 source1.connect(splitterNodes[0]);
 source2.connect(splitterNodes[1]);
 
@@ -355,6 +364,7 @@ function frameLooper(){
 		if (fbcArray[i] >= 0.5) {barHeight = -(fbcArray[i] * 0.5)} //Bepaalt de hoogte van de staven op basis van de de audiodata (dus het samplegetal) die in de array is gestopt. 
 		//  fillRect( x, y, width, height ) // Explanation of the parameters below
 		canvasCtx.fillRect(barX, canvas.height, barWidth, barHeight); //Deze geeft de staven weer.
+		console.log(fbcArray);
 	};
 };
 
