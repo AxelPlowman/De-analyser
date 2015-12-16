@@ -11,6 +11,8 @@ var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gel
 	audioCtx = new AudioContext(),
 	source1 = audioCtx.createMediaElementSource(player1),
 	source2 = audioCtx.createMediaElementSource(player2),
+
+	frameLooperRunning = false,
     
 	//creates an analyser node
 	analyser = audioCtx.createAnalyser(),
@@ -89,7 +91,7 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 $('#listSongs').on('click', '.deck1Button', function() {
 	var songNumber = this.id;
 	var songURL = searchResults.songs[songNumber].url;
-	new SoundCloudAudioSource(player1).loadStream(songURL);
+	new SoundCloudAudioSource1(player1).loadStream(songURL);
 	console.log("DECK-1 buttonNumber = #" + songNumber);
 });
 
@@ -97,7 +99,7 @@ $('#listSongs').on('click', '.deck1Button', function() {
 $('#listSongs').on('click', '.deck2Button', function() {
 	var songNumber = this.id;
 	var songURL = searchResults.songs[songNumber].url;
-	new SoundCloudAudioSource(player2).loadStream(songURL);
+	new SoundCloudAudioSource2(player2).loadStream(songURL);
 	console.log("DECK-2 buttonNumber = #" + songNumber);
 });
 
@@ -226,7 +228,7 @@ player1.addEventListener('error', function(e) {
 // var xhr = new XMLHttpRequest();
 
 //Vraagt toestemming aan de soundcloud om het liedje af te spelen, etc.
-var SoundCloudAudioSource = function(audioElement) {
+var SoundCloudAudioSource1 = function(audioElement) {
     player1.crossOrigin = 'Anonymous';
     var self = this;
     self.streamData = new Uint8Array(128);
@@ -244,9 +246,32 @@ var SoundCloudAudioSource = function(audioElement) {
             });
         });
     };
-    frameLooper();
+    if (!frameLooperRunning) {
+    	frameLooper
+    }
 };
+var SoundCloudAudioSource2 = function(audioElement) {
+    player1.crossOrigin = 'Anonymous';
+    var self = this;
+    self.streamData = new Uint8Array(128);
+  
+    this.loadStream = function(urlSong) {
+        var clientID = "00856b340598a8c7e317e1f148b5a13c";
 
+        SC.initialize({
+            client_id: clientID
+        });
+        SC.get('/resolve', { url: urlSong }, function(track) {
+            SC.get('/tracks/' + track.id, {}, function(sound, error) {
+                player2.setAttribute('src', sound.stream_url + '?client_id=' + clientID);
+                player2.play();
+            });
+        });
+    };
+    if (!frameLooperRunning) {
+    	frameLooper
+    }
+};
    
 
 //Deze functie wordt afgespeeld als er op de "More results" (of "Less results") knop wordt gedrukt.
@@ -286,6 +311,7 @@ var moreResults = function() {
 // };
 
 function frameLooper(){
+	frameLooperRunning = true;
 	window.requestAnimationFrame(frameLooper); //Creërt een loop voor de animatie.
 	fbcArray = new Uint8Array(analyser.frequencyBinCount); //Stopt de audiodata in een array.
 	analyser.getByteFrequencyData(fbcArray);
