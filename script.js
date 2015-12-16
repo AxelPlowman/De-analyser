@@ -210,7 +210,7 @@ function soundcloudRequest() {
 
 player1.addEventListener('error', function(e) {
     var noSourceLoaded = (this.networkState===HTMLMediaElement.NETWORK_NO_SOURCE);
-    if(noSourceLoaded) window.alert("Sorry, this one is blocked (copyright), please try another one");
+    if(noSourceLoaded) window.alert("Sorry, this song is blocked (copyright), please try another one");
 }, true);
 
 // var xhr = new XMLHttpRequest();

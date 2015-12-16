@@ -60,11 +60,11 @@
   	    	<audio id="player1" controls="true"></audio>
   	    	<input type="range" class="tempoSlider" id="tempoDeck2" min="0.8" max="1.2" value="1" step="0.001" />
   	    </div>
-  	    <div id="results">
-	    	<h1 id="searchHeader">Search results:</h>
-			<ul class="listSongs"></ul>
+  	    	<aside id="aside">
+	    	<h1 id="searchHeader" style="visibility:hidden">Search results:</h1>
+			<ul id="listSongs"></ul>
 			<button id="moreResults" onclick="moreResults()" style="visibility:hidden">More results</button>
-		</div>
+		</aside>
   		
   		<canvas id="visuals1"></canvas>
   		<canvas id="visuals2"></canvas>
@@ -81,7 +81,7 @@
 	</footer>
 	<script id="list-template" type="text/x-handlebars-template">
         {{#each this}}
-        <li> {{uploader}}: {{title}} <button id="{{@index}}">Play</button></li>
+        <li> {{uploader}}: {{title}} <button onclick="loadPlayButton({{@index}})">{{@index}} Load & Play</button></li>
         {{/each}}
     </script>
 	<script type="text/javascript" src="script.js"></script>
