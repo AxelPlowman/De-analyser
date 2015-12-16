@@ -84,6 +84,10 @@ ul.freqList li {
 .playbackWrapper > .deck:first-child {
   margin-left: 0;
 }
+tr {
+  height: 2rem;
+  padding: 0.2rem;
+}
 
 #listSongs {
   display: inline-block;
