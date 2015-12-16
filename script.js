@@ -5,9 +5,12 @@ var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gel
 	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
 	//player1 = new Audio(), //creates new <audio>
     player1 = document.getElementById("player1"),
+    player2 = document.getElementById("player2"),
     PBSpeedDeck1,
+    PBSpeedDeck2,
 	audioCtx = new AudioContext(),
-	source = audioCtx.createMediaElementSource(player1),
+	source1 = audioCtx.createMediaElementSource(player1),
+	source2 = audioCtx.createMediaElementSource(player2),
     
 	//creates an analyser node
 	analyser = audioCtx.createAnalyser(),
@@ -83,27 +86,16 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 //////////////////////////////////////////
 
 
-//"Load & Play" knop:
-// audioSource = new SoundCloudAudioSource(player1);
-
-
-// var loadPlayButton = function(songNumber) {
-//         var urlSong = searchResults.songs[songNumber].url;
-//         audioSource.loadStream(urlSong);
-//     }; 
+ 
 
 
 $('#listSongs').on('click', 'button', function() {
 	var songNumber = this.id;
 	var songURL = searchResults.songs[songNumber].url;
 	new SoundCloudAudioSource(player1).loadStream(songURL);
-	console.log("buttonNumber = #" + buttonNumber);
+	console.log("buttonNumber = #" + songNumber);
 });
 
-// $(".listButton").live("click",function() {
-// 	alert("succes!");
-//     console.log(this.id); 
-// });
 
 
 //range slider inputs to equaliser nodes
@@ -122,10 +114,17 @@ document.querySelector(".resetButton").addEventListener('click', function () {
 }, false);
 
 //range slider inputs to playbackSpeed
+//deck 1
 document.querySelector("#tempoDeck1").addEventListener('input', function () {
 	PBSpeedDeck1 = document.querySelector('#tempoDeck1').value;
 	player1.playbackRate = document.querySelector('#tempoDeck1').value;
 	console.log("player1.playbackRate = " + player1.playbackRate);
+}, false);
+//deck 2
+document.querySelector("#tempoDeck2").addEventListener('input', function () {
+	PBSpeedDeck2 = document.querySelector('#tempoDeck2').value;
+	player2.playbackRate = document.querySelector('#tempoDeck2').value;
+	console.log("player2.playbackRate = " + player2.playbackRate);
 }, false);
 
 
@@ -137,7 +136,7 @@ document.querySelector("#tempoDeck1").addEventListener('input', function () {
 	
 
 // audiopath
-source.connect(equaliserNodes[0]);
+source1.connect(equaliserNodes[0]);
 equaliserNodes[0].connect(equaliserNodes[1]);
 equaliserNodes[1].connect(equaliserNodes[2]);
 equaliserNodes[2].connect(equaliserNodes[3]);
