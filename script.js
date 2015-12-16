@@ -174,9 +174,9 @@ splitterNodes[1].connect(gainNodes[2]);
 //splitterNodes[1].connect(gainNodes[3], 1);
 
 gainNodes[0].connect(merger);
-gainNodes[1].connect(merger);
+//gainNodes[1].connect(merger);
 gainNodes[2].connect(merger);
-gainNodes[3].connect(merger);
+//gainNodes[3].connect(merger);
 merger.connect(EQNodes[0]);
 EQNodes[0].connect(EQNodes[1]);
 EQNodes[1].connect(EQNodes[2]);
