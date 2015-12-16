@@ -93,8 +93,8 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 //     }; 
 
 
-$("#listSongs").find("button").click(function() {
-    console.log(this.id); // or alert($(this).attr('id'));
+$(".listButton").click(function() {
+    console.log(this.id); 
 });
 
 
@@ -180,7 +180,6 @@ function soundcloudRequest() {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			var APIResponse = JSON.parse(xhr.responseText);
-			console.log(APIResponse);
 			searchResults.songs = [];
 			for (var i=0; i<APIResponse.length; i++){
 				songInfo = new Object();
@@ -189,7 +188,6 @@ function soundcloudRequest() {
 				songInfo.uploader = (APIResponse[i].user.username);
 				searchResults.songs.push(songInfo);
 			}
-			console.log(APIResponse.length);
 			console.log(searchResults);
             $("#listSongs li").remove();
 			var theTemplateScript = $("#list-template").html(); 
