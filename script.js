@@ -84,13 +84,13 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 
 
 //"Load & Play" knop:
-audioSource = new SoundCloudAudioSource(player1);
+// audioSource = new SoundCloudAudioSource(player1);
 
 
-var loadPlayButton = function(songNumber) {
-        var urlSong = searchResults.songs[songNumber].url;
-        audioSource.loadStream(urlSong);
-    }; 
+// var loadPlayButton = function(songNumber) {
+//         var urlSong = searchResults.songs[songNumber].url;
+//         audioSource.loadStream(urlSong);
+//     }; 
 
 
 document.querySelector(".listPlayButton").addEventListener('click', function () {
