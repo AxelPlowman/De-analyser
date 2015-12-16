@@ -268,8 +268,8 @@ var SoundCloudAudioSource2 = function(audioElement) {
             });
         });
     };
-    if (!frameLooperRunning) {
-    	frameLooper
+    if (frameLooperRunning = false) {
+    	frameLooper;
     }
 };
    
