@@ -15,6 +15,12 @@ var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gel
 	frameLooperRunning = false,
     
 	//creates an analyser node
+	splitterNodes = [
+		audioCtx.createChannelSplitter(2),
+		audioCtx.createChannelSplitter(2)
+	],
+	merger = audioCtx.createChannelMerger(4),
+
 	analyser = audioCtx.createAnalyser(),
 
 	//creates 10 biquadFilter nodes, one for each frequency in our equaliser
@@ -143,8 +149,11 @@ document.querySelector("#tempoDeck2").addEventListener('input', function () {
 	
 
 // audiopath
-source1.connect(equaliserNodes[0]);
-source2.connect(equaliserNodes[0]);
+source1.connect(splitterNodes[0]);
+source2.connect(splitterNodes[1]);
+splitterNodes[0].connect(merger);
+splitterNodes[1].connect(merger);
+merger.connect(equaliserNodes[0]);
 equaliserNodes[0].connect(equaliserNodes[1]);
 equaliserNodes[1].connect(equaliserNodes[2]);
 equaliserNodes[2].connect(equaliserNodes[3]);
