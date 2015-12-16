@@ -81,7 +81,7 @@
 	</footer>
 	<script id="list-template" type="text/x-handlebars-template">
         {{#each this}}
-        <li> {{uploader}}: {{title}} <button onclick="loadPlayButton({{@index}})">{{@index}} Load & Play</button></li>
+        <li> {{uploader}}: {{title}} <button id="{{@index}}" onclick="loadPlayButton({{@index}})"> Load & Play</button></li>
         {{/each}}
     </script>
 	<script type="text/javascript" src="script.js"></script>

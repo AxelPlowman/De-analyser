@@ -93,9 +93,11 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 //     }; 
 
 
-// document.querySelector("#listSongs").addEventListener('click', function () {
-// 	alert("succes!");
-// });
+document.querySelector("#listSongs").addEventListener('click', function () {
+	$("button").click(function() {
+    alert(this.id); // or alert($(this).attr('id'));
+});
+});
 
 
 //range slider inputs to equaliser nodes
