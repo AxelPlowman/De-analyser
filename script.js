@@ -82,7 +82,21 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 //	EVENT LISTENERS
 //////////////////////////////////////////
 
-//window.addEventListener("load", initAudioplayer1, false); //Stelt: als de pagina geladen is, voer dan de functie "initAudioplayer1" uit.
+
+//"Load & Play" knop:
+audioSource = new SoundCloudAudioSource(player1);
+
+
+var loadPlayButton = function(songNumber) {
+        var urlSong = searchResults.songs[songNumber].url;
+        audioSource.loadStream(urlSong);
+    }; 
+
+
+document.querySelector(".listPlayButton").addEventListener('click', function () {
+	alert("succes!");
+};
+
 
 //range slider inputs to equaliser nodes
 document.querySelector(".equaliserSliders").addEventListener('input', function () {
@@ -223,12 +237,7 @@ var SoundCloudAudioSource = function(audioElement) {
     frameLooper();
 };
 
-//"Load & Play" knop:
-audioSource = new SoundCloudAudioSource(player1);
-var loadPlayButton = function(songNumber) {
-        var urlSong = searchResults.songs[songNumber].url;
-        audioSource.loadStream(urlSong);
-    };    
+   
 
 //Deze functie wordt afgespeeld als er op de "More results" (of "Less results") knop wordt gedrukt.
 var moreResults = function() {
