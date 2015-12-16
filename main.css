@@ -87,9 +87,11 @@ ul.freqList li {
 .playbackWrapper > .deck:first-child {
   margin-left: 0;
 }
+table {
+  margin-bottom: 2rem;
+}
 tr {
   height: 5rem;
-  margin-bottom: 1rem;
   padding: 0.2rem;
   background-color: #ffffff;
 }
