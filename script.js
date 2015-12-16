@@ -165,18 +165,18 @@ source1.connect(splitterNodes[0]);
 source2.connect(splitterNodes[1]);
 
 //connect LEFT  channel of deck 1 to gain[0]
-splitterNodes[0].connect(gainNodes[0]);
+splitterNodes[0].connect(gainNodes[0], 0, 0);
 //connect RIGHT channel of deck 1 to gain[1]
-//splitterNodes[0].connect(gainNodes[1], 1);
+splitterNodes[0].connect(gainNodes[1], 1, 0);
 //connect LEFT  channel of deck 2 to gain[2]
-splitterNodes[1].connect(gainNodes[2]);
+splitterNodes[1].connect(gainNodes[2], 0, 0);
 //connect RIGHT channel of deck 2 to gain[3]
-//splitterNodes[1].connect(gainNodes[3], 1);
+splitterNodes[1].connect(gainNodes[3], 1, 0);
 
-gainNodes[0].connect(merger);
-//gainNodes[1].connect(merger);
-gainNodes[2].connect(merger);
-//gainNodes[3].connect(merger);
+gainNodes[0].connect(merger, 0, 0);
+gainNodes[1].connect(merger, 0, 1);
+gainNodes[2].connect(merger, 0, 2);
+gainNodes[3].connect(merger, 0, 3);
 merger.connect(EQNodes[0]);
 EQNodes[0].connect(EQNodes[1]);
 EQNodes[1].connect(EQNodes[2]);
