@@ -4,8 +4,8 @@
 -------------------------------------------------------------
 */ 
 html {
-  font-family: "Ubuntu", "Arial", sans-serif;
-  font-size: 16px;
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-weight: 300;
   color: #404040;
 }
 main {
@@ -81,12 +81,13 @@ ul.freqList li {
 #listSongs {
   display: inline-block;
   text-align: left;
+  font-size: 0.8rem;
 }
 .uploaderColumn {
-  width: 20rem;
+  width: 10rem;
 }
 .titleColumn {
-  width: 40rem;
+  width: 20rem;
 }
 /*#audioPlayer {
   width: 800px; 
