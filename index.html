@@ -81,7 +81,7 @@
 	</footer>
 	<script id="list-template" type="text/x-handlebars-template">
         {{#each this}}
-        <tr><td>{{uploader}}</td> <td>{{title}}</td><td><button class="deck1Button" id="{{@index}}">Deck1</button><button class="deck2Button" id="{{@index}}">Deck2</button></td></tr>
+        <tr><td class="uploaderColumn">{{uploader}}</td><td class="titleColumn">{{title}}</td><td class = "deckColumn"><button class="deck1Button" id="{{@index}}">Deck1</button><button class="deck2Button" id="{{@index}}">Deck2</button></td></tr>
         {{/each}}
     </script>
 	<script type="text/javascript" src="script.js"></script>

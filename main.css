@@ -77,6 +77,17 @@ ul.freqList li {
   background-color: grey;
   margin-top: 20px;
 }
+
+#listSongs {
+  display: inline-block;
+  text-align: left;
+}
+.uploaderColumn {
+  width: 20rem;
+}
+.titleColumn {
+  width: 40rem;
+}
 /*#audioPlayer {
   width: 800px; 
   height: 30px; 
