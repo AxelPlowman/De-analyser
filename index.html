@@ -61,7 +61,7 @@
   	    	<input type="range" class="tempoSlider" id="tempoDeck2" min="0.8" max="1.2" value="1" step="0.001" />
   	    </div>
   	    <div id="results">
-	    <h id="searchHeader" style="visibility:hidden">Search results:</h>
+	    <h1 id="searchHeader">Search results:</h>
 		<ul id="listSongs"></ul>
 		<button id="moreResults" onclick="moreResults()" style="visibility:hidden">More results</button>
 		</div>
@@ -81,7 +81,7 @@
 	</footer>
 	<script id="list-template" type="text/x-handlebars-template">
         {{#each this}}
-        <li> {{uploader}}: {{title}} <button class="playButton" id="{{@index}}">Play</button></li>
+        <li> {{uploader}}: {{title}} <button id="{{@index}}" class="listPlayButton">Play</button></li>
         {{/each}}
     </script>
 	<script type="text/javascript" src="script.js"></script>
