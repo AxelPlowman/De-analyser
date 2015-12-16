@@ -94,7 +94,7 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 
 
 $('#listSongs').on('click', 'button', function() {
-	alert("succes!");
+	alert("this is my id: " + this.id);
 });
 
 // $(".listButton").live("click",function() {
