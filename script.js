@@ -93,10 +93,14 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 //     }; 
 
 
-$(".listButton").live('click', function() {
+$('.listButton').on('click', function() {
 	alert("succes!");
-    console.log(this.id); 
 });
+
+// $(".listButton").live("click",function() {
+// 	alert("succes!");
+//     console.log(this.id); 
+// });
 
 
 //range slider inputs to equaliser nodes
