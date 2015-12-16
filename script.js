@@ -144,6 +144,7 @@ document.querySelector("#tempoDeck2").addEventListener('input', function () {
 
 // audiopath
 source1.connect(equaliserNodes[0]);
+source2.connect(equaliserNodes[0]);
 equaliserNodes[0].connect(equaliserNodes[1]);
 equaliserNodes[1].connect(equaliserNodes[2]);
 equaliserNodes[2].connect(equaliserNodes[3]);
