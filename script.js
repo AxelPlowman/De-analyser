@@ -94,6 +94,7 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 
 
 $(".listButton").click(function() {
+	alert("succes!");
     console.log(this.id); 
 });
 
