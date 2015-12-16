@@ -93,7 +93,7 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 //     }; 
 
 
-$('#listSongs li button').on('click', function() {
+$('.resetButton').on('click', function() {
 	alert("succes!");
 });
 
