@@ -89,11 +89,11 @@ for (var i = 0; i < equaliserNodes.length; i++) {
  
 
 
-$('#listSongs').on('click', 'button', function() {
+$('#listSongs').on('click', '.deck1Button', function() {
 	var songNumber = this.id;
 	var songURL = searchResults.songs[songNumber].url;
 	new SoundCloudAudioSource(player1).loadStream(songURL);
-	console.log("buttonNumber = #" + songNumber);
+	console.log("DECK-1 buttonNumber = #" + songNumber);
 });
 
 
