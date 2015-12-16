@@ -191,10 +191,10 @@ function soundcloudRequest() {
 			}
 			console.log(APIResponse.length);
 			console.log(searchResults);
-            $("#listSongs li").remove();
+            $(".listSongs li").remove();
 			var theTemplateScript = $("#list-template").html(); 
             var theTemplate = Handlebars.compile(theTemplateScript); 
-            $("#listSongs").append(theTemplate(searchResults.songs));
+            $(".listSongs").append(theTemplate(searchResults.songs));
             
             document.getElementById('searchHeader').style = "visibility:visible";
             if (searchResults.songs.length === 0) {
