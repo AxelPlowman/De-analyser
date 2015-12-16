@@ -104,7 +104,7 @@ $('#listSongs').on('click', function() {
 
 
 //range slider inputs to equaliser nodes
-document.querySelector(".equaliserSliders").addEventListener('input', function () {
+document.querySelector(".equaliserSliders").addEventListener('input', 'button', function () {
 	for (var i = 0; i < equaliserNodes.length; i++) {
 		equaliserNodes[i].gain.value = document.querySelector(sliderIDList[i]).value;
 		console.log(equaliserNodes[i].gain.value);
