@@ -4,7 +4,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script type="text/javascript" src="handlebars-v4.0.5.js"></script>
 	<script src="http://connect.soundcloud.com/sdk.js"></script>
-	<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700,300' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="normalize.css">
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<meta charset="utf-8" />
@@ -13,11 +14,6 @@
 </head>
 
 <body id="body">
-	<aside id="aside">
-	    <h id="searchHeader" style="visibility:hidden">Search results:</h>
-		<ul id="listSongs"></ul>
-		<button id="moreResults" onclick="moreResults()" style="visibility:hidden">More results</button>
-	</aside>
 	<main>
 		<div class="equaliser">
 			<form class="equaliserSliders">
@@ -53,10 +49,25 @@
 				<input class="submitQuery" type=button value="search">
 			</form>
 		</div>
+		
+		<div class="playbackWrapper">
+			<div id="deck1" class="deck">
+				<p>deck 1</p>
+	  	    	<audio id="player1" controls="true"></audio>
+	  	    	<input type="range" class="tempoSlider" id="tempoDeck1" min="0.9" max="1.1" value="1" step="0.001" />
+	  	    </div>
+	  	    <div id="deck2" class="deck">
+	  	    	<p>deck 2</p>
+	  	    	<audio id="player2" controls="true"></audio>
+	  	    	<input type="range" class="tempoSlider" id="tempoDeck2" min="0.9" max="1.1" value="1" step="0.001" />
+	  	    </div>
+  		</div>
 
-		<div id="audioPlayer">
-  	    	<audio id="player" controls="true"></audio>
-  	    </div>
+  	    <aside id="aside">
+	    	<h1 id="searchHeader" style="visibility:hidden">Search results:</h1>
+			<ul id="listSongs"></ul>
+			<button id="moreResults" onclick="moreResults()" style="visibility:hidden">More results</button>
+		</aside>
   		
   		<canvas id="visuals1"></canvas>
   		<canvas id="visuals2"></canvas>
@@ -73,7 +84,7 @@
 	</footer>
 	<script id="list-template" type="text/x-handlebars-template">
         {{#each this}}
-        <li> {{uploader}}: {{title}} <button onclick="loadPlayButton({{@index}})">Load & Play</button></li>
+        <li><table><tr><td class="uploaderColumn">{{uploader}}</td><td class="titleColumn">{{title}}</td><td class = "deckColumn"><button class="deck1Button" id="{{@index}}">Deck1</button><button class="deck2Button" id="{{@index}}">Deck2</button></td></tr></table></li>
         {{/each}}
     </script>
 	<script type="text/javascript" src="script.js"></script>

@@ -3,12 +3,24 @@
 //////////////////////////////////////////
 var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand 
 	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
-	//player = new Audio(), //creates new <audio>
-    player = document.getElementById("player"),
+	//player1 = new Audio(), //creates new <audio>
+    player1 = document.getElementById("player1"),
+    player2 = document.getElementById("player2"),
+    PBSpeedDeck1,
+    PBSpeedDeck2,
 	audioCtx = new AudioContext(),
-	source = audioCtx.createMediaElementSource(player),
+	source1 = audioCtx.createMediaElementSource(player1),
+	source2 = audioCtx.createMediaElementSource(player2),
+
+	frameLooperRunning = false,
     
 	//creates an analyser node
+	splitterNodes = [
+		audioCtx.createChannelSplitter(2),
+		audioCtx.createChannelSplitter(2)
+	],
+	merger = audioCtx.createChannelMerger,
+
 	analyser = audioCtx.createAnalyser(),
 
 	//creates 10 biquadFilter nodes, one for each frequency in our equaliser
@@ -72,17 +84,31 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 };
 
 //audio settings
-// audio.src = "audio/Phoenix.wav"; 
-// audio.controls = true; 
-// audio.loop = true;
-// audio.autoplay = true; 
+
+
+
 
 
 //////////////////////////////////////////
 //	EVENT LISTENERS
 //////////////////////////////////////////
 
-//window.addEventListener("load", initAudioPlayer, false); //Stelt: als de pagina geladen is, voer dan de functie "initAudioPlayer" uit.
+//load song to deck 1
+$('#listSongs').on('click', '.deck1Button', function() {
+	var songNumber = this.id;
+	var songURL = searchResults.songs[songNumber].url;
+	new SoundCloudAudioSource1(player1).loadStream(songURL);
+	console.log("DECK-1 buttonNumber = #" + songNumber);
+});
+
+//load song to deck 2
+$('#listSongs').on('click', '.deck2Button', function() {
+	var songNumber = this.id;
+	var songURL = searchResults.songs[songNumber].url;
+	new SoundCloudAudioSource2(player2).loadStream(songURL);
+	console.log("DECK-2 buttonNumber = #" + songNumber);
+});
+
 
 //range slider inputs to equaliser nodes
 document.querySelector(".equaliserSliders").addEventListener('input', function () {
@@ -100,17 +126,31 @@ document.querySelector(".resetButton").addEventListener('click', function () {
 }, false);
 
 
+//range slider inputs to playbackSpeed
+//deck 1
+document.querySelector("#tempoDeck1").addEventListener('input', function () {
+	PBSpeedDeck1 = document.querySelector('#tempoDeck1').value;
+	player1.playbackRate = document.querySelector('#tempoDeck1').value;
+	console.log("player1.playbackRate = " + player1.playbackRate);
+}, false);
+//deck 2
+document.querySelector("#tempoDeck2").addEventListener('input', function () {
+	PBSpeedDeck2 = document.querySelector('#tempoDeck2').value;
+	player2.playbackRate = document.querySelector('#tempoDeck2').value;
+	console.log("player2.playbackRate = " + player2.playbackRate);
+}, false);
 
 
 //De hierboven aangeroepen functie:
 
-	//document.getElementById("audioBox").appendChild(player); //Stelt dat de hierboven gemaakte audio in de audioBox van het HTML-bestand gaat.
+	//document.getElementById("audioBox").appendChild(player1); //Stelt dat de hierboven gemaakte audio in de audioBox van het HTML-bestand gaat.
 
 	//Hieronder wordt de boel met elkaar geconnect: 
 	
 
 // audiopath
-source.connect(equaliserNodes[0]);
+source1.connect(equaliserNodes[0]);
+source2.connect(equaliserNodes[0]);
 equaliserNodes[0].connect(equaliserNodes[1]);
 equaliserNodes[1].connect(equaliserNodes[2]);
 equaliserNodes[2].connect(equaliserNodes[3]);
@@ -161,7 +201,6 @@ function soundcloudRequest() {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			var APIResponse = JSON.parse(xhr.responseText);
-			console.log(APIResponse);
 			searchResults.songs = [];
 			for (var i=0; i<APIResponse.length; i++){
 				songInfo = new Object();
@@ -170,7 +209,6 @@ function soundcloudRequest() {
 				songInfo.uploader = (APIResponse[i].user.username);
 				searchResults.songs.push(songInfo);
 			}
-			console.log(APIResponse.length);
 			console.log(searchResults);
             $("#listSongs li").remove();
 			var theTemplateScript = $("#list-template").html(); 
@@ -189,16 +227,16 @@ function soundcloudRequest() {
 	};
 }
 
-player.addEventListener('error', function(e) {
-    var noSourceLoaded = (this.networkState===HTMLMediaElement.NETWORK_NO_SOURCE);
-    if(noSourceLoaded) window.alert("Sorry, this one is blocked (copyright), please try another one");
-}, true);
+// player1.addEventListener('error', function(e) {
+//     var noSourceLoaded = (this.networkState===HTMLMediaElement.NETWORK_NO_SOURCE);
+//     if(noSourceLoaded) window.alert("Sorry, this song is blocked (copyright), please try another one");
+// }, true);
 
 // var xhr = new XMLHttpRequest();
 
 //Vraagt toestemming aan de soundcloud om het liedje af te spelen, etc.
-var SoundCloudAudioSource = function(audioElement) {
-    player.crossOrigin = 'Anonymous';
+var SoundCloudAudioSource1 = function(audioElement) {
+    player1.crossOrigin = 'Anonymous';
     var self = this;
     self.streamData = new Uint8Array(128);
   
@@ -210,20 +248,38 @@ var SoundCloudAudioSource = function(audioElement) {
         });
         SC.get('/resolve', { url: urlSong }, function(track) {
             SC.get('/tracks/' + track.id, {}, function(sound, error) {
-                player.setAttribute('src', sound.stream_url + '?client_id=' + clientID);
-                player.play();
+                player1.setAttribute('src', sound.stream_url + '?client_id=' + clientID);
+                player1.play();
             });
         });
     };
-    frameLooper();
+    if (frameLooperRunning = false) {
+    	frameLooper;
+    }
 };
+var SoundCloudAudioSource2 = function(audioElement) {
+    player1.crossOrigin = 'Anonymous';
+    var self = this;
+    self.streamData = new Uint8Array(128);
+  
+    this.loadStream = function(urlSong) {
+        var clientID = "00856b340598a8c7e317e1f148b5a13c";
 
-//"Load & Play" knop:
-audioSource = new SoundCloudAudioSource(player);
-var loadPlayButton = function(songNumber) {
-        var urlSong = searchResults.songs[songNumber].url;
-        audioSource.loadStream(urlSong);
-    };    
+        SC.initialize({
+            client_id: clientID
+        });
+        SC.get('/resolve', { url: urlSong }, function(track) {
+            SC.get('/tracks/' + track.id, {}, function(sound, error) {
+                player2.setAttribute('src', sound.stream_url + '?client_id=' + clientID);
+                player2.play();
+            });
+        });
+    };
+    if (frameLooperRunning = false) {
+    	frameLooper;
+    }
+};
+   
 
 //Deze functie wordt afgespeeld als er op de "More results" (of "Less results") knop wordt gedrukt.
 var moreResults = function() {
@@ -262,6 +318,7 @@ var moreResults = function() {
 // };
 
 function frameLooper(){
+	frameLooperRunning = true;
 	window.requestAnimationFrame(frameLooper); //Creërt een loop voor de animatie.
 	fbcArray = new Uint8Array(analyser.frequencyBinCount); //Stopt de audiodata in een array.
 	analyser.getByteFrequencyData(fbcArray);
