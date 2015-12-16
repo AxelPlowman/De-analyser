@@ -167,11 +167,11 @@ source2.connect(splitterNodes[1]);
 //connect LEFT  channel of deck 1 to gain[0]
 splitterNodes[0].connect(gainNodes[0], 0, 0);
 //connect RIGHT channel of deck 1 to gain[1]
-splitterNodes[0].connect(gainNodes[1], 1, 0);
+splitterNodes[0].connect(gainNodes[1], 0, 1);
 //connect LEFT  channel of deck 2 to gain[2]
 splitterNodes[1].connect(gainNodes[2], 0, 0);
 //connect RIGHT channel of deck 2 to gain[3]
-splitterNodes[1].connect(gainNodes[3], 1, 0);
+splitterNodes[1].connect(gainNodes[3], 0, 1);
 
 gainNodes[0].connect(merger);
 gainNodes[1].connect(merger);
