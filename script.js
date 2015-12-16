@@ -85,10 +85,7 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 //	EVENT LISTENERS
 //////////////////////////////////////////
 
-
- 
-
-
+//load song to deck 1
 $('#listSongs').on('click', '.deck1Button', function() {
 	var songNumber = this.id;
 	var songURL = searchResults.songs[songNumber].url;
@@ -96,6 +93,13 @@ $('#listSongs').on('click', '.deck1Button', function() {
 	console.log("DECK-1 buttonNumber = #" + songNumber);
 });
 
+//load song to deck 2
+$('#listSongs').on('click', '.deck1Button', function() {
+	var songNumber = this.id;
+	var songURL = searchResults.songs[songNumber].url;
+	new SoundCloudAudioSource(player1).loadStream(songURL);
+	console.log("DECK-1 buttonNumber = #" + songNumber);
+});
 
 
 //range slider inputs to equaliser nodes
@@ -112,6 +116,7 @@ document.querySelector(".resetButton").addEventListener('click', function () {
 		console.log(equaliserNodes[i].gain.value);
 	};
 }, false);
+
 
 //range slider inputs to playbackSpeed
 //deck 1
