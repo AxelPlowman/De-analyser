@@ -156,15 +156,13 @@ document.querySelector("#tempoDeck2").addEventListener('input', function () {
 
 	//Hieronder wordt de boel met elkaar geconnect: 
 	
-<<<<<<< HEAD
 //////////////////////////////////////////
 //	AUDIO PATH  
 //////////////////////////////////////////
-=======
+
 
 // audiopath
 
->>>>>>> 3a161c1b78178803c2cc4416252480091c441918
 source1.connect(splitterNodes[0]);
 source2.connect(splitterNodes[1]);
 
