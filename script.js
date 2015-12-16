@@ -33,7 +33,7 @@ var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gel
 	analyser = audioCtx.createAnalyser(),
 
 	//creates 10 biquadFilter nodes, one for each frequency in our equaliser
-	equaliserNodes = [
+	EQNodes = [
 		audioCtx.createBiquadFilter(), 
 		audioCtx.createBiquadFilter(), 
 		audioCtx.createBiquadFilter(), 
@@ -85,11 +85,11 @@ var fbcArray, bars, barX, barWidth, barHeight;
 analyser.FFTSize = 2048; //sets analyser's FFTSize-property
 
 //biquadFilter default settings
-for (var i = 0; i < equaliserNodes.length; i++) {
-	equaliserNodes[i].type = "peaking";
-	equaliserNodes[i].Q.value = 1;
-	equaliserNodes[i].frequency.value = equaliserFrequencies[i];
-	equaliserNodes[i].gain.value = 0;
+for (var i = 0; i < EQNodes.length; i++) {
+	EQNodes[i].type = "peaking";
+	EQNodes[i].Q.value = 1;
+	EQNodes[i].frequency.value = equaliserFrequencies[i];
+	EQNodes[i].gain.value = 0;
 };
 
 //audio settings
@@ -121,16 +121,16 @@ $('#listSongs').on('click', '.deck2Button', function() {
 
 //range slider inputs to equaliser nodes
 document.querySelector(".equaliserSliders").addEventListener('input', function () {
-	for (var i = 0; i < equaliserNodes.length; i++) {
-		equaliserNodes[i].gain.value = document.querySelector(sliderIDList[i]).value;
-		console.log(equaliserNodes[i].gain.value);
+	for (var i = 0; i < EQNodes.length; i++) {
+		EQNodes[i].gain.value = document.querySelector(sliderIDList[i]).value;
+		console.log(EQNodes[i].gain.value);
 	};
 }, false);
 //reset button
 document.querySelector(".resetButton").addEventListener('click', function () {
-	for (var i = 0; i < equaliserNodes.length; i++) {
-		equaliserNodes[i].gain.value = 0;
-		console.log(equaliserNodes[i].gain.value);
+	for (var i = 0; i < EQNodes.length; i++) {
+		EQNodes[i].gain.value = 0;
+		console.log(EQNodes[i].gain.value);
 	};
 }, false);
 
@@ -161,38 +161,34 @@ document.querySelector("#tempoDeck2").addEventListener('input', function () {
 //////////////////////////////////////////
 
 
-// audiopath
+source1.connect(splitterNodes[0]);
+source2.connect(splitterNodes[1]);
 
-// source1.connect(splitterNodes[0]);
-// source2.connect(splitterNodes[1]);
+//connect LEFT  channel of deck 1 to gain[0]
+splitterNodes[0].connect(gainNodes[0], 0);
+//connect RIGHT channel of deck 1 to gain[1]
+splitterNodes[0].connect(gainNodes[1], 1);
+//connect LEFT  channel of deck 2 to gain[2]
+splitterNodes[1].connect(gainNodes[2], 0);
+//connect RIGHT channel of deck 2 to gain[3]
+splitterNodes[1].connect(gainNodes[3], 1);
 
-source2.connect(audioCtx.destination);
-
-// //connect LEFT  channel of deck 1 to gain[0]
-// splitterNodes[0].connect(gainNodes[0], 0);
-// //connect RIGHT channel of deck 1 to gain[1]
-// splitterNodes[0].connect(gainNodes[1], 1);
-// //connect LEFT  channel of deck 2 to gain[2]
-// splitterNodes[1].connect(gainNodes[2], 0);
-// //connect RIGHT channel of deck 2 to gain[3]
-// splitterNodes[1].connect(gainNodes[3], 1);
-
-// gainNodes[0].connect(merger, 0, 0);
-// gainNodes[1].connect(merger, 0, 1);
-// gainNodes[2].connect(merger, 0, 2);
-// gainNodes[3].connect(merger, 0, 3);
-// merger.connect(equaliserNodes[0]);
-// equaliserNodes[0].connect(equaliserNodes[1]);
-// equaliserNodes[1].connect(equaliserNodes[2]);
-// equaliserNodes[2].connect(equaliserNodes[3]);
-// equaliserNodes[3].connect(equaliserNodes[4]);
-// equaliserNodes[4].connect(equaliserNodes[5]);
-// equaliserNodes[5].connect(equaliserNodes[6]);
-// equaliserNodes[6].connect(equaliserNodes[7]);
-// equaliserNodes[7].connect(equaliserNodes[8]);
-// equaliserNodes[8].connect(equaliserNodes[9]);
-// equaliserNodes[9].connect(analyser);
-// analyser.connect(audioCtx.destination);
+gainNodes[0].connect(merger);
+gainNodes[1].connect(merger);
+gainNodes[2].connect(merger);
+gainNodes[3].connect(merger);
+merger.connect(EQNodes[0]);
+EQNodes[0].connect(EQNodes[1]);
+EQNodes[1].connect(EQNodes[2]);
+EQNodes[2].connect(EQNodes[3]);
+EQNodes[3].connect(EQNodes[4]);
+EQNodes[4].connect(EQNodes[5]);
+EQNodes[5].connect(EQNodes[6]);
+EQNodes[6].connect(EQNodes[7]);
+EQNodes[7].connect(EQNodes[8]);
+EQNodes[8].connect(EQNodes[9]);
+EQNodes[9].connect(analyser);
+analyser.connect(audioCtx.destination);
 
 
 
