@@ -93,7 +93,7 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 //     }; 
 
 
-$('.resetButton').on('click', function() {
+$('#1').on('click', function() {
 	alert("succes!");
 });
 
