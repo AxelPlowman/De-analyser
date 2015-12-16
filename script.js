@@ -94,11 +94,11 @@ $('#listSongs').on('click', '.deck1Button', function() {
 });
 
 //load song to deck 2
-$('#listSongs').on('click', '.deck1Button', function() {
+$('#listSongs').on('click', '.deck2Button', function() {
 	var songNumber = this.id;
 	var songURL = searchResults.songs[songNumber].url;
-	new SoundCloudAudioSource(player1).loadStream(songURL);
-	console.log("DECK-1 buttonNumber = #" + songNumber);
+	new SoundCloudAudioSource(player2).loadStream(songURL);
+	console.log("DECK-2 buttonNumber = #" + songNumber);
 });
 
 
