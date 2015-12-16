@@ -73,7 +73,6 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 };
 
 //audio settings
-console.log(player1.webkitPreservesPitch);
 
 
 

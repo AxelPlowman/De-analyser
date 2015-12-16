@@ -71,6 +71,12 @@ ul.freqList li {
   VISUALS STYLE
 -------------------------------------------------------------
 */ 
+
+.deck {
+  display: inline-block;
+  background-color: grey;
+  margin-top: 20px;
+}
 /*#audioPlayer {
   width: 800px; 
   height: 30px; 
