@@ -19,6 +19,12 @@ var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gel
 		audioCtx.createChannelSplitter(2),
 		audioCtx.createChannelSplitter(2)
 	],
+	gainNodes = [
+		audioCtx.createGain(),
+		audioCtx.createGain(),
+		audioCtx.createGain(),
+		audioCtx.createGain()
+	],
 	merger = audioCtx.createChannelMerger(4),
 
 	analyser = audioCtx.createAnalyser(),
@@ -147,12 +153,25 @@ document.querySelector("#tempoDeck2").addEventListener('input', function () {
 
 	//Hieronder wordt de boel met elkaar geconnect: 
 	
-
-// audiopath
+//////////////////////////////////////////
+//	AUDIO PATH  
+//////////////////////////////////////////
 source1.connect(splitterNodes[0]);
 source2.connect(splitterNodes[1]);
-splitterNodes[0].connect(merger);
-splitterNodes[1].connect(merger);
+
+//connect LEFT  channel of deck 1 to gain[0]
+splitterNodes[0].connect(gain[0], 0);
+//connect RIGHT channel of deck 1 to gain[1]
+splitterNodes[0].connect(gain[1], 1);
+//connect LEFT  channel of deck 2 to gain[2]
+splitterNodes[1].connect(gain[2], 0);
+//connect RIGHT channel of deck 2 to gain[3]
+splitterNodes[1].connect(gain[3], 1);
+
+gainNodes[0].connect(merger, 0, 0);
+gainNodes[1].connect(merger, 0, 1);
+gainNodes[2].connect(merger, 0, 2);
+gainNodes[3].connect(merger, 0, 3);
 merger.connect(equaliserNodes[0]);
 equaliserNodes[0].connect(equaliserNodes[1]);
 equaliserNodes[1].connect(equaliserNodes[2]);
@@ -261,7 +280,7 @@ var SoundCloudAudioSource1 = function(audioElement) {
     }
 };
 var SoundCloudAudioSource2 = function(audioElement) {
-    player1.crossOrigin = 'Anonymous';
+    player2.crossOrigin = 'Anonymous';
     var self = this;
     self.streamData = new Uint8Array(128);
   
