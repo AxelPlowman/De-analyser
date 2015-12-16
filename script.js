@@ -95,7 +95,7 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 
 document.querySelector("#listSongs").addEventListener('click', function () {
 	$("button").click(function() {
-    alert(this.id); // or alert($(this).attr('id'));
+    console.log(this.id); // or alert($(this).attr('id'));
 });
 });
 
