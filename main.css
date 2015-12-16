@@ -92,11 +92,12 @@ table {
 }
 tr {
   height: 5rem;
-  padding: 0.2rem;
   background-color: #ffffff;
 }
 td {
   vertical-align: middle;
+  padding: 1rem;
+
 }
 
 #listSongs {
