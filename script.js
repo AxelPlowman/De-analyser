@@ -94,8 +94,9 @@ for (var i = 0; i < equaliserNodes.length; i++) {
 
 
 $('#listSongs').on('click', 'button', function() {
-	var buttonNumber = this.id;
-
+	var songNumber = this.id;
+	var songURL = searchResults.songs[songNumber].url;
+	SoundCloudAudioSource(player1).loadStream(songURL);
 	console.log("buttonNumber = #" + buttonNumber);
 });
 
