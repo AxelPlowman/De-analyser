@@ -64,7 +64,7 @@
 
   	    <aside id="aside">
 	    	<h1 id="searchHeader" style="visibility:hidden">Search results:</h1>
-			<table id="listSongs"></table>
+			<ul id="listSongs"></ul>
 			<button id="moreResults" onclick="moreResults()" style="visibility:hidden">More results</button>
 		</aside>
   		
@@ -83,7 +83,7 @@
 	</footer>
 	<script id="list-template" type="text/x-handlebars-template">
         {{#each this}}
-        <tr><td class="uploaderColumn">{{uploader}}</td><td class="titleColumn">{{title}}</td><td class = "deckColumn"><button class="deck1Button" id="{{@index}}">Deck1</button><button class="deck2Button" id="{{@index}}">Deck2</button></td></tr>
+        <table><tr><td class="uploaderColumn">{{uploader}}</td><td class="titleColumn">{{title}}</td><td class = "deckColumn"><button class="deck1Button" id="{{@index}}">Deck1</button><button class="deck2Button" id="{{@index}}">Deck2</button></td></tr></table>
         {{/each}}
     </script>
 	<script type="text/javascript" src="script.js"></script>
