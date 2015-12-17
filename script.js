@@ -301,7 +301,8 @@ var SoundCloudAudioSource1 = function(audioElement) {
         });
     };
     if (frameLooperRunning = false) {
-    	frameLooper;
+    	frameLooper();
+    	frameLooperRunning = true;
     }
 };
 var SoundCloudAudioSource2 = function(audioElement) {
@@ -323,7 +324,8 @@ var SoundCloudAudioSource2 = function(audioElement) {
         });
     };
     if (frameLooperRunning = false) {
-    	frameLooper;
+    	frameLooper();
+    	frameLooperRunning = true;
     }
 };
    
@@ -365,7 +367,6 @@ var moreResults = function() {
 // };
 
 function frameLooper(){
-	frameLooperRunning = true;
 	window.requestAnimationFrame(frameLooper); //Creërt een loop voor de animatie.
 	fbcArray = new Uint8Array(analyser.frequencyBinCount); //Stopt de audiodata in een array.
 	analyser.getByteFrequencyData(fbcArray);
