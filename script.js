@@ -149,9 +149,9 @@ document.querySelector("#tempoDeck2").addEventListener('input', function () {
 	console.log("player2.playbackRate = " + player2.playbackRate);
 }, false);
 
-//crossfader
-document.querySelector(".crossfader").addEventListener('input', function () {
-	crossFaderPosition = document.querySelector('#tempoDeck2').value;
+//crossFader
+document.querySelector(".crossFader").addEventListener('input', function () {
+	crossFaderPosition = document.querySelector('.crossFader').value;
 	var x = parseInt(crossFaderPosition.value) / parseInt(crossFaderPosition.max);
   // Use an equal-power crossfading curve:
 	var gain1 = Math.cos(x * 0.5*Math.PI);
