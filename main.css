@@ -142,7 +142,12 @@ td {
 .titleColumn {
   width: 20rem;
 }
-.externalLinks:hover, .externalLinks:active {
+.externalLink a{
+  color: #404040;
+  text-decoration: none;
+}
+
+.externalLink a:hover, .externalLink a:visited, .externalLink a:active {
   color: #70CF9A;
 }
 
