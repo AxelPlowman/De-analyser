@@ -154,7 +154,8 @@ button, .submitQuery {
   border: 1px solid #404040;
   font-weight: bold;
   margin: 3px;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3)
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 
 aside {
