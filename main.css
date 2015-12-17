@@ -133,7 +133,7 @@ td {
 
 #listSongs {
   display: inline-block;
-  text-align: left;
+  text-align: center;
   font-size: 0.8rem;
 }
 .uploaderColumn {
