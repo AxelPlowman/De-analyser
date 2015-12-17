@@ -125,9 +125,11 @@ ul.freqList li {
   display: inline-block;
   text-align: center;
   font-size: 0.8rem;
+  border: 1px solid red;
 }
 #listSongs li {
   text-align: center;
+  border: 1px solid blue;
 }
 table {
   margin-bottom: 2rem;
