@@ -124,6 +124,7 @@ table {
 tr {
   height: 5rem;
   background-color: #ffffff;
+  text-align: left;
 }
 td {
   vertical-align: middle;
@@ -135,6 +136,9 @@ td {
   display: inline-block;
   text-align: center;
   font-size: 0.8rem;
+}
+#listSongs li {
+  text-align: center;
 }
 .uploaderColumn {
   width: 10rem;
