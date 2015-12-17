@@ -152,7 +152,10 @@ document.querySelector("#tempoDeck2").addEventListener('input', function () {
 //crossFader
 document.querySelector(".crossFader").addEventListener('input', function () {
 	crossFaderPosition = document.querySelector('.crossFader').value;
-	var x = parseInt(crossFaderPosition.value) / parseInt(crossFaderPosition.max);
+	console.log(crossFaderPosition);
+	//var x = parseInt(crossFaderPosition.value) / parseInt(crossFaderPosition.max);
+	var x = crossFaderPosition;
+	console.log(x);
   // Use an equal-power crossfading curve:
 	var gain1 = Math.cos(x * 0.5*Math.PI);
 	var gain2 = Math.cos((1.0 - x) * 0.5*Math.PI);
