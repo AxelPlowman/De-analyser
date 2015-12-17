@@ -142,6 +142,9 @@ td {
 .titleColumn {
   width: 20rem;
 }
+.externalLinks:hover, .externalLinks:active {
+  color: #70CF9A;
+}
 
 /*#audioPlayer {
   width: 800px; 

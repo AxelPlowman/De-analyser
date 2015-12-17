@@ -90,7 +90,7 @@
 	</footer>
 	<script id="list-template" type="text/x-handlebars-template">
        {{#each this}}
-        <li><table><tr><td class="uploaderColumn">{{uploader}}</td><td class="titleColumn">{{title}}</td><td class = "deckColumn"><button class="deck1Button" id="{{@index}}">Deck1</button><button class="deck2Button" id="{{@index}}">Deck2</button><a class="externalLink" href="{{url}}" target="_blank"><i class="fa fa-external-link"></i></a></td></tr></table></li>
+        <li><table><tr><td class="uploaderColumn">{{uploader}}</td><td class="titleColumn">{{title}}</td><td class = "deckColumn"><button class="deck1Button" id="{{@index}}">Deck1</button><button class="deck2Button" id="{{@index}}">Deck2</button></td><td><a class="externalLink" href="{{url}}" target="_blank"><i class="fa fa-external-link"></i></a></td></tr></table></li>
         {{/each}}
     </script>
 	<script type="text/javascript" src="script.js"></script>
