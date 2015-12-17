@@ -118,8 +118,20 @@ ul.freqList li {
   margin-left: 0;
 }
 
+
+
+
+#listSongs {
+  display: inline-block;
+  text-align: center;
+  font-size: 0.8rem;
+}
+#listSongs li {
+  text-align: center;
+}
 table {
   margin-bottom: 2rem;
+  display: inline-block;
 }
 tr {
   height: 5rem;
@@ -131,15 +143,6 @@ td {
   padding: 1rem;
 }
 
-
-#listSongs {
-  display: inline-block;
-  text-align: center;
-  font-size: 0.8rem;
-}
-#listSongs li {
-  text-align: center;
-}
 .uploaderColumn {
   width: 10rem;
 }
