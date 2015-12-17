@@ -142,13 +142,13 @@ td {
 .titleColumn {
   width: 20rem;
 }
-.externalLink a{
+.externalLink a,  .externalLink a:visited{
   font-size: 1rem;
   color: #404040;
   text-decoration: none;
 }
 
-.externalLink a:hover, .externalLink a:visited, .externalLink a:active {
+.externalLink a:hover, .externalLink a:active {
   color: #70CF9A;
 }
 
