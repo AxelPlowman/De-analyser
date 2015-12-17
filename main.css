@@ -91,6 +91,17 @@ ul.freqList li {
   margin-left: 0;
 }
 
+.tempoDeckLabel {
+  font-size: 0.8rem;
+  width: 4rem;
+  position: relative;
+  left:;
+}
+.PBSpeedWrapper {
+  display: inline-block;
+  width: 50px;
+}
+
 .crossFaderWrapper {
   display: inline-block;
   padding: 15px;
@@ -177,7 +188,6 @@ td {
 footer {
   font-size: 0.8rem;
   text-align: center;
-  position: absolute;
   bottom: 0;
   left: 0;
 }
