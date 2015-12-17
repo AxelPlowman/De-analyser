@@ -191,7 +191,7 @@ splitterNodes[1].connect(gainNodes[3], 1, 0);
 gainNodes[0].connect(merger, 0, 0);
 gainNodes[1].connect(merger, 0, 1);
 gainNodes[2].connect(merger, 0, 0);
-gainNodes[3].connect(merger, 0, 1);g
+gainNodes[3].connect(merger, 0, 1);
 merger.connect(EQNodes[0]);
 EQNodes[0].connect(EQNodes[1]);
 EQNodes[1].connect(EQNodes[2]);
