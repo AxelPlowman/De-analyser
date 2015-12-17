@@ -49,23 +49,17 @@
 				<input class="submitQuery" type=button value="search">
 			</form>
 		</div>
-		
+		<canvas id="visuals"></canvas>
 		<div class="playbackWrapper">
 			<div id="deck1" class="deck">
 				<p>deck 1</p>
-				<div class="PBSpeedWrapper">
-					<input type="range" class="tempoSlider" id="tempoDeck1" min="0.9" max="1.1" value="1" step="0.001" />
-					<label for="tempoDeck1" id="tempoDeck1Label" class="tempoDeckLabel">0.0%</label>
-				</div>
+				<input type="range" class="tempoSlider" id="tempoDeck1" min="0.9" max="1.1" value="1" step="0.001" />
 	  	    	<audio id="player1" controls="true"></audio>
 	  	    </div>
 	  	    <div id="deck2" class="deck">
 	  	    	<p>deck 2</p>
 	  	    	<audio id="player2" controls="true"></audio>
-	  	    	<div class="PBSpeedWrapper">
-		  	    	<input type="range" class="tempoSlider" id="tempoDeck2" min="0.9" max="1.1" value="1" step="0.001" />
-		  	    	<label for="tempoDeck2" id="tempoDeck2Label" class="tempoDeckLabel">0.0%</label>
-	  	    	</div>
+	  	    	<input type="range" class="tempoSlider" id="tempoDeck2" min="0.9" max="1.1" value="1" step="0.001" />
 	  	    </div>
   		</div>
 		<input class="crossFader" type="range" min="0" value="0.5" max="1" step="0.001"/>
@@ -74,9 +68,6 @@
 			<ul id="listSongs"></ul>
 			<button id="moreResults" onclick="moreResults()" style="visibility:hidden">More results</button>
 		</aside>
-  		
-  		<canvas id="visuals1"></canvas>
-  		<canvas id="visuals2"></canvas>
 	</main>
 	<footer>
 		<section class="footerContent">
@@ -90,7 +81,7 @@
 	</footer>
 	<script id="list-template" type="text/x-handlebars-template">
        {{#each this}}
-        <li><table><tr><td class="uploaderColumn">{{uploader}}</td><td class="titleColumn">{{title}}</td><td class = "deckColumn"><button class="deck1Button" id="{{@index}}">Deck1</button><button class="deck2Button" id="{{@index}}">Deck2</button><a href="{{url}}" target="_blank"><i class="fa fa-external-link"></i></a></td></tr></table></li>
+        <li><table><tr><td class="uploaderColumn">{{uploader}}</td><td class="titleColumn">{{title}}</td><td class = "deckColumn"><button class="deck1Button" id="{{@index}}">Deck1</button><button class="deck2Button" id="{{@index}}">Deck2</button><a href="{{url}}"><i class="fa fa-external-link"></i></a></td></tr></table></li>
         {{/each}}
     </script>
 	<script type="text/javascript" src="script.js"></script>
