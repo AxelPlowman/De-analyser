@@ -149,6 +149,21 @@ document.querySelector("#tempoDeck2").addEventListener('input', function () {
 	console.log("player2.playbackRate = " + player2.playbackRate);
 }, false);
 
+//crossfader
+document.querySelector(".crossfader").addEventListener('input', function () {
+	crossFaderPosition = document.querySelector('#tempoDeck2').value;
+	var x = parseInt(crossFaderPosition.value) / parseInt(crossFaderPosition.max);
+  // Use an equal-power crossfading curve:
+	var gain1 = Math.cos(x * 0.5*Math.PI);
+	var gain2 = Math.cos((1.0 - x) * 0.5*Math.PI);
+	gainNodes[0].gain.value = gain1;
+	gainNodes[1].gain.value = gain1;
+	gainNodes[2].gain.value = gain2;
+	gainNodes[3].gain.value = gain2;
+
+}, false);
+
+
 
 //De hierboven aangeroepen functie:
 
@@ -176,9 +191,7 @@ splitterNodes[1].connect(gainNodes[3], 1, 0);
 gainNodes[0].connect(merger, 0, 0);
 gainNodes[1].connect(merger, 0, 1);
 gainNodes[2].connect(merger, 0, 0);
-gainNodes[3].connect(merger, 0, 1);
-// gainNodes[2].connect(merger, 0, 2);
-// gainNodes[2].connect(merger, 0, 3);
+gainNodes[3].connect(merger, 0, 1);g
 merger.connect(EQNodes[0]);
 EQNodes[0].connect(EQNodes[1]);
 EQNodes[1].connect(EQNodes[2]);
