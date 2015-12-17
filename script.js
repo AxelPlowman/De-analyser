@@ -189,6 +189,9 @@ document.querySelector(".crossFader").addEventListener('input', function () {
 source1.connect(splitterNodes[0]);
 source2.connect(splitterNodes[1]);
 
+//Future steps are to adjust volume of left gain nodes relative to right gain node.
+//This would facilitate a pan knob
+
 //connect LEFT  channel of deck 1 to gain[0]
 splitterNodes[0].connect(gainNodes[0], 0, 0);
 //connect RIGHT channel of deck 1 to gain[1]
@@ -369,7 +372,7 @@ function frameLooper() {
 
 	bars = 1024; //Hoeveelheid staven(bars).
 	for (var i = 0; i < bars; i++) { //Deze loopt de staven.
-		canvasCtx.fillStyle = "hsla("+i+", "+50+Math.floor(fbcArray[i]/255*50)+"%, 20%,"+(fbcArray[i]/255)+")";
+		canvasCtx.fillStyle = "hsla("+i+", "+50+Math.floor(fbcArray[i]/255*50)+"%, 70%,"+(fbcArray[i]/255)+")";
 		barX = i * 1; //Bepaalt de plaats van iederen staaf, zodat ze naast elkaar staan.
 		barWidth = 1; //Bepaalt de breedte van de staven.
 		barHeight = -(fbcArray[i]);
