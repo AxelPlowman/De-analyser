@@ -13,7 +13,7 @@
 	<title>NIMBUS</title>
 </head>
 
-<body id="body">
+<body>
 	<main>
 		<h1>NIMBUS</h1>
 		<div class="equaliser">
@@ -69,14 +69,14 @@
 		 <div class="search">
 			<form id="searchForm">
 				<label>Search within SoundCloud:</label>
-				<input id="searchField" type=search placeholder="e.g. Mathew Jonson">
+				<input id="searchField" type=search placeholder="e.g. Georg Friedrich Händel">
 				<input class="submitQuery" type=button value="search">
 			</form>
 		</div>
   	    <aside id="aside">
-	    	<h1 id="searchHeader" style="visibility:hidden">Search results:</h1>
+	    	<h2 class="searchHeader" style="visibility:hidden">Search results:</h2>
 			<ul id="listSongs"></ul>
-			<button id="moreResults" onclick="moreResults()" style="visibility:hidden">More results</button>
+			<button class="moreResults" style="visibility:hidden">More results</button>
 		</aside>
 	</main>
 	<footer>
