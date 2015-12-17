@@ -9,6 +9,10 @@ html {
   color: #404040;
   background-color: #D2D2D2;
 }
+h1 {
+  font-size: 3rem;
+  margin-top: 20px;
+}
 main {
   text-align: center;
 }
@@ -118,6 +122,9 @@ ul.freqList li {
   margin-left: 0;
 }
 
+.search {
+  margin-top: 20px;
+}
 
 aside {
   display: block;
