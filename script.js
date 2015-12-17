@@ -140,12 +140,18 @@ document.querySelector(".resetButton").addEventListener('click', function () {
 document.querySelector("#tempoDeck1").addEventListener('input', function () {
 	PBSpeedDeck1 = document.querySelector('#tempoDeck1').value;
 	player1.playbackRate = document.querySelector('#tempoDeck1').value;
+	var label = document.getElementById('tempoDeck1Label');
+	var labelValue = (((player1.playbackRate-1)*100).toFixed(1) + "%");
+	label.innerHTML = labelValue;
 	console.log("player1.playbackRate = " + player1.playbackRate);
 }, false);
 //deck 2
 document.querySelector("#tempoDeck2").addEventListener('input', function () {
 	PBSpeedDeck2 = document.querySelector('#tempoDeck2').value;
 	player2.playbackRate = document.querySelector('#tempoDeck2').value;
+	var label = document.getElementById('tempoDeck2Label');
+	var labelValue = (((player2.playbackRate-1)*100).toFixed(1) + "%");
+	label.innerHTML = labelValue;
 	console.log("player2.playbackRate = " + player2.playbackRate);
 }, false);
 

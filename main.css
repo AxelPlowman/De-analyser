@@ -64,10 +64,22 @@ ul.freqList li {
 .tempoSlider{
     -webkit-appearance: slider-vertical;
     width: 20px;
-    height: 100px;
+    height: 150px;
     margin-left: 20px;
+    display: inline-block;
+    position: relative;
+    left: -13px;
  }
-
+ .tempoDeckLabel {
+  font-size: 0.8rem;
+  width: 4rem;
+  position: relative;
+  left:;
+ }
+.PBSpeedWrapper {
+  display: inline-block;
+  width: 50px;
+}
 /* 
 -------------------------------------------------------------
   VISUALS STYLE
@@ -97,8 +109,8 @@ tr {
 td {
   vertical-align: middle;
   padding: 1rem;
-
 }
+
 
 #listSongs {
   display: inline-block;
@@ -111,6 +123,7 @@ td {
 .titleColumn {
   width: 20rem;
 }
+
 /*#audioPlayer {
   width: 800px; 
   height: 30px; 
