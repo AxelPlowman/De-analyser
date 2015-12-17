@@ -16,13 +16,6 @@ a {
   text-decoration: none;
 }
 
-
-
-/* 
--------------------------------------------------------------
-  SLIDER STYLE
--------------------------------------------------------------
-*/ 
 .equaliser {
   display: inline-block;
   padding: 15px;
@@ -50,6 +43,9 @@ a {
 .equaliserSliders > input:first-child {
   margin-left: 0;
 }
+
+
+
 .freqList {
   margin: 0;
   padding: 0;
@@ -80,11 +76,6 @@ ul.freqList li {
   display: inline-block;
   width: 50px;
 }
-/* 
--------------------------------------------------------------
-  VISUALS STYLE
--------------------------------------------------------------
-*/ 
 
 .deck {
   display: inline-block;
@@ -99,6 +90,11 @@ ul.freqList li {
 .playbackWrapper > .deck:first-child {
   margin-left: 0;
 }
+
+.crossFaderWrapper {
+  background-color: #ffffff;
+}
+
 table {
   margin-bottom: 2rem;
 }

@@ -1,7 +1,7 @@
 //////////////////////////////////////////
 //	VARIABLES
 //////////////////////////////////////////
-var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand 
+var canvas = document.getElementById("visuals"), //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand 
 	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
 	//player1 = new Audio(), //creates new <audio>
     player1 = document.getElementById("player1"),
@@ -11,7 +11,6 @@ var canvas = document.getElementById("visuals1"), //Zet de variabel 'canvas' gel
 	audioCtx = new AudioContext(),
 	source1 = audioCtx.createMediaElementSource(player1),
 	source2 = audioCtx.createMediaElementSource(player2),
-
 	frameLooperRunning = false,
     
 	//creates an analyser node
