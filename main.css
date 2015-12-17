@@ -7,11 +7,13 @@ html {
   font-family: "Open Sans", "Arial", sans-serif;
   font-weight: 300;
   color: #404040;
-  background-color: #D2D2D2;
+  background-color: hsl(0,0%,20%);
 }
 h1 {
   font-size: 3rem;
   margin-top: 20px;
+  color: #ffffff;
+  font-weight: 700;
 }
 main {
   text-align: center;
