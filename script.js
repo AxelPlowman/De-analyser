@@ -161,10 +161,10 @@ document.querySelector(".crossFader").addEventListener('input', function () {
 	var gain2 = Math.cos((1.0 - x) * 0.5*Math.PI);
 	console.log("gain1 value = " + gain1);
 	console.log("gain2 value = " + gain2);
-	// gainNodes[0].gain.value = gain1;
-	// gainNodes[1].gain.value = gain1;
-	// gainNodes[2].gain.value = gain2;
-	// gainNodes[3].gain.value = gain2;
+	gainNodes[0].gain.value = gain1;
+	gainNodes[1].gain.value = gain1;
+	gainNodes[2].gain.value = gain2;
+	gainNodes[3].gain.value = gain2;
 
 }, false);
 
