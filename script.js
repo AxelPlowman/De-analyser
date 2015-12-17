@@ -1,19 +1,22 @@
 //////////////////////////////////////////
 //	VARIABLES
 //////////////////////////////////////////
-var canvas = document.getElementById("visuals"), //Zet de variabel 'canvas' gelijk aan de canvas in het HTML-bestand 
-	canvasCtx = canvas.getContext("2d"), //We geven de canvas een 2D context en slaan deze op 
-	//player1 = new Audio(), //creates new <audio>
+
+    //Saves the canvas and audio elements from the HTML in a variables (and adds a 2d context to the canvas and saves this in a variable).
+var canvas = document.getElementById("visuals"),
+	canvasCtx = canvas.getContext("2d"),
     player1 = document.getElementById("player1"),
     player2 = document.getElementById("player2"),
+    
     PBSpeedDeck1,
     PBSpeedDeck2,
+    
+    //The variables beneath are all the nodes in the 'chain' (or path) between the audiosource and the actual output (sound!). To give an example: the analyser variable creates an analyser node in the audiocontext. When the audio source is connected with this analyser, then the analyser can analyse the audio. 
 	audioCtx = new AudioContext(),
 	source1 = audioCtx.createMediaElementSource(player1),
 	source2 = audioCtx.createMediaElementSource(player2),
 	frameLooperRunning = false,
     
-	//creates an analyser node
 	splitterNodes = [
 		audioCtx.createChannelSplitter(2),
 		audioCtx.createChannelSplitter(2)
@@ -25,13 +28,11 @@ var canvas = document.getElementById("visuals"), //Zet de variabel 'canvas' geli
 		audioCtx.createGain()
 	],
 
-
-
 	merger = audioCtx.createChannelMerger(4),
 
 	analyser = audioCtx.createAnalyser(),
 
-	//creates 10 biquadFilter nodes, one for each frequency in our equaliser
+	//Creates ten biquadFilter nodes, one for each frequency in our equaliser.
 	EQNodes = [
 		audioCtx.createBiquadFilter(), 
 		audioCtx.createBiquadFilter(), 
@@ -45,7 +46,7 @@ var canvas = document.getElementById("visuals"), //Zet de variabel 'canvas' geli
 		audioCtx.createBiquadFilter()
 	],
 
-	//frequencies that can be boosted or decreased in volume
+	//Frequencies that can be boosted or decreased in volume.
 	equaliserFrequencies = [
 		32,
 		54,
@@ -59,7 +60,7 @@ var canvas = document.getElementById("visuals"), //Zet de variabel 'canvas' geli
 		16000
 	],
 
-	//excuse me, ten slider inputs coming trough...
+	//Excuse me, ten slider inputs coming trough...
 	sliderIDList = [
 	'#EQValueIn1',
 	'#EQValueIn2',
@@ -73,35 +74,41 @@ var canvas = document.getElementById("visuals"), //Zet de variabel 'canvas' geli
 	'#EQValueIn10',
 	];
 
-	//variables to be filled later on:
-var fbcArray, bars, barX, barWidth, barHeight;
-
+	//Variables for the visuals and the soundcloud sections (most to be filled later on):
+var fbcArray, 
+    bars, 
+    barX, 
+    barWidth, 
+    barHeight,
+    audioSource,
+    searchQuery,
+	maxResultsAmount= 15,
+	searchResults = {
+		header: 'Search Results',
+		songs: []
+	};
 
 //////////////////////////////////////////
 //	WEB SOUND API ELEMENT SETTINGS
 //////////////////////////////////////////
-//analyser settings
-analyser.FFTSize = 2048; //sets analyser's FFTSize-property
 
-//biquadFilter default settings
+//Sets analyser's FFTSize-property.
+analyser.FFTSize = 2048; 
+
+//BiquadFilter default settings.
 for (var i = 0; i < EQNodes.length; i++) {
 	EQNodes[i].type = "peaking";
 	EQNodes[i].Q.value = 1;
 	EQNodes[i].frequency.value = equaliserFrequencies[i];
 	EQNodes[i].gain.value = 0;
-};
-
-//audio settings
-
-
-
+}
 
 
 //////////////////////////////////////////
 //	EVENT LISTENERS
 //////////////////////////////////////////
 
-//load song to deck 1
+//load song to deck 1.
 $('#listSongs').on('click', '.deck1Button', function() {
 	var songNumber = this.id;
 	var songURL = searchResults.songs[songNumber].url;
@@ -109,7 +116,7 @@ $('#listSongs').on('click', '.deck1Button', function() {
 	console.log("DECK-1 buttonNumber = #" + songNumber);
 });
 
-//load song to deck 2
+//load song to deck 2.
 $('#listSongs').on('click', '.deck2Button', function() {
 	var songNumber = this.id;
 	var songURL = searchResults.songs[songNumber].url;
@@ -117,25 +124,38 @@ $('#listSongs').on('click', '.deck2Button', function() {
 	console.log("DECK-2 buttonNumber = #" + songNumber);
 });
 
-
-//range slider inputs to equaliser nodes
+//Range slider inputs to equaliser nodes.
 document.querySelector(".equaliserSliders").addEventListener('input', function () {
 	for (var i = 0; i < EQNodes.length; i++) {
 		EQNodes[i].gain.value = document.querySelector(sliderIDList[i]).value;
 		console.log(EQNodes[i].gain.value);
-	};
+	}
 }, false);
-//reset button
+
+//Reset button.
 document.querySelector(".resetButton").addEventListener('click', function () {
 	for (var i = 0; i < EQNodes.length; i++) {
 		EQNodes[i].gain.value = 0;
 		console.log(EQNodes[i].gain.value);
-	};
+	}
 }, false);
 
+//More results (or Less results) button.
+document.querySelector(".moreResults").addEventListener('click', function () {
+    if (maxResultsAmount === 15) {
+        maxResultsAmount = 30;
+        soundcloudRequest();
+        document.querySelector(".moreResults").textContent = "Less results";
+    }
+    else {
+        maxResultsAmount = 15;
+        soundcloudRequest(); 
+        document.querySelector(".moreResults").textContent = "More results";
+    }
+}, false);
 
-//range slider inputs to playbackSpeed
-//deck 1
+//Range slider inputs to playbackSpeed.
+//Deck 1
 document.querySelector("#tempoDeck1").addEventListener('input', function () {
 	PBSpeedDeck1 = document.querySelector('#tempoDeck1').value;
 	player1.playbackRate = document.querySelector('#tempoDeck1').value;
@@ -144,7 +164,7 @@ document.querySelector("#tempoDeck1").addEventListener('input', function () {
 	label.innerHTML = labelValue;
 	console.log("player1.playbackRate = " + player1.playbackRate);
 }, false);
-//deck 2
+//Deck 2
 document.querySelector("#tempoDeck2").addEventListener('input', function () {
 	PBSpeedDeck2 = document.querySelector('#tempoDeck2').value;
 	player2.playbackRate = document.querySelector('#tempoDeck2').value;
@@ -154,14 +174,13 @@ document.querySelector("#tempoDeck2").addEventListener('input', function () {
 	console.log("player2.playbackRate = " + player2.playbackRate);
 }, false);
 
-//crossFader
+//CrossFader
 document.querySelector(".crossFader").addEventListener('input', function () {
 	crossFaderPosition = document.querySelector('.crossFader').value;
 	console.log(crossFaderPosition);
-	//var x = parseInt(crossFaderPosition.value) / parseInt(crossFaderPosition.max);
 	var x = crossFaderPosition;
 	console.log(x);
-  // Use an equal-power crossfading curve:
+    //Use an equal-power crossfading curve:
 	var gain1 = Math.cos(x * 0.5*Math.PI);
 	var gain2 = Math.cos((1.0 - x) * 0.5*Math.PI);
 	console.log("gain1 value = " + gain1);
@@ -170,35 +189,37 @@ document.querySelector(".crossFader").addEventListener('input', function () {
 	gainNodes[1].gain.value = gain1;
 	gainNodes[2].gain.value = gain2;
 	gainNodes[3].gain.value = gain2;
-
 }, false);
 
+//Gives an alert to the user when the song is blocked because of copyright restrictions of the browser.
+player1.addEventListener('error', function(e) {
+    var noSourceLoaded = (this.networkState===HTMLMediaElement.NETWORK_NO_SOURCE);
+    if(noSourceLoaded) window.alert("Sorry, this song is blocked (copyright), please try another one");
+}, true);
+player2.addEventListener('error', function(e) {
+    var noSourceLoaded = (this.networkState===HTMLMediaElement.NETWORK_NO_SOURCE);
+    if(noSourceLoaded) window.alert("Sorry, this song is blocked (copyright), please try another one");
+}, true);
 
-
-//De hierboven aangeroepen functie:
-
-	//document.getElementById("audioBox").appendChild(player1); //Stelt dat de hierboven gemaakte audio in de audioBox van het HTML-bestand gaat.
-
-	//Hieronder wordt de boel met elkaar geconnect: 
 	
 //////////////////////////////////////////
 //	AUDIO PATH  
 //////////////////////////////////////////
 
-
+//Everything here connects the nodes to each other. In that way an path will be created from the audio source to the actual output (sound!).
 source1.connect(splitterNodes[0]);
 source2.connect(splitterNodes[1]);
 
 //Future steps are to adjust volume of left gain nodes relative to right gain node.
-//This would facilitate a pan knob
+//This would facilitate a pan knob.
 
-//connect LEFT  channel of deck 1 to gain[0]
+//Connect LEFT channel of deck 1 to gain[0].
 splitterNodes[0].connect(gainNodes[0], 0, 0);
-//connect RIGHT channel of deck 1 to gain[1]
+//Connect RIGHT channel of deck 1 to gain[1].
 splitterNodes[0].connect(gainNodes[1], 1, 0);
-//connect LEFT  channel of deck 2 to gain[2]
+//Connect LEFT channel of deck 2 to gain[2].
 splitterNodes[1].connect(gainNodes[2], 0, 0);
-//connect RIGHT channel of deck 2 to gain[3]
+//Connect RIGHT channel of deck 2 to gain[3].
 splitterNodes[1].connect(gainNodes[3], 1, 0);
 
 gainNodes[0].connect(merger, 0, 0);
@@ -219,20 +240,11 @@ EQNodes[9].connect(analyser);
 analyser.connect(audioCtx.destination);
 
 
-
-
-
 //////////////////////////////////////////
 //	SOUNDCLOUD
 //////////////////////////////////////////
-var audioSource,
-    searchQuery,
-	maxResultsAmount= 15,
-	searchResults = {
-		header: 'Search Results',
-		songs: []
-	};
 
+//The search function.
 document.querySelector(".submitQuery").addEventListener('click', function () {
 	var userInput = document.querySelector("#searchField").value;
 	if (userInput.length === 0) {
@@ -245,8 +257,7 @@ document.querySelector(".submitQuery").addEventListener('click', function () {
 	}
 });
 
-
-
+//This function requests the search results from the Soundcloud API and lists the results on the page.  
 function soundcloudRequest() {
 	method = "GET";
 	requestURL = 'https://api.soundcloud.com/tracks?client_id=00856b340598a8c7e317e1f148b5a13c&limit=' + maxResultsAmount + '&q=' + searchQuery;
@@ -264,38 +275,26 @@ function soundcloudRequest() {
 				songInfo.uploader = (APIResponse[i].user.username);
 				searchResults.songs.push(songInfo);
 			}
+			
 			console.log(searchResults);
             $("#listSongs li").remove();
 			var theTemplateScript = $("#list-template").html(); 
             var theTemplate = Handlebars.compile(theTemplateScript); 
             $("#listSongs").append(theTemplate(searchResults.songs));
             
-            document.getElementById('searchHeader').style = "visibility:visible";
+            document.querySelector(".searchHeader").style.visibility = "visible";
             if (searchResults.songs.length === 0) {
-                document.getElementById('searchHeader').textContent = "Search results: no results";
+                document.querySelector(".searchHeader").textContent = "Search results: no results";
             }
             else {
-                document.getElementById('moreResults').style = "visibility:visible";
-                document.getElementById('searchHeader').textContent = "Search results: " + searchResults.songs.length + " results";
+                document.querySelector(".moreResults").style.visibility = "visible";
+                document.querySelector(".searchHeader").textContent = "Search results: " + searchResults.songs.length + " results";
             }
 		}
 	};
 }
 
-player1.addEventListener('error', function(e) {
-    var noSourceLoaded = (this.networkState===HTMLMediaElement.NETWORK_NO_SOURCE);
-    if(noSourceLoaded) window.alert("Sorry, this song is blocked (copyright), please try another one");
-}, true);
-
-player2.addEventListener('error', function(e) {
-    var noSourceLoaded = (this.networkState===HTMLMediaElement.NETWORK_NO_SOURCE);
-    if(noSourceLoaded) window.alert("Sorry, this song is blocked (copyright), please try another one");
-}, true);
-
-
-// var xhr = new XMLHttpRequest();
-
-//Vraagt toestemming aan de soundcloud om het liedje af te spelen, etc. voor deck 1.
+//This function requests Soundcloud to give permission to play the song for deck 1.
 var SoundCloudAudioSource1 = function(audioElement) {
     player1.crossOrigin = 'Anonymous';
     var self = this;
@@ -320,7 +319,7 @@ var SoundCloudAudioSource1 = function(audioElement) {
     }
 };
 
-//Vraagt toestemming aan de soundcloud om het liedje af te spelen, etc. voor deck 2.
+//The same as above, only now for deck 2.
 var SoundCloudAudioSource2 = function(audioElement) {
     player2.crossOrigin = 'Anonymous';
     var self = this;
@@ -346,39 +345,25 @@ var SoundCloudAudioSource2 = function(audioElement) {
 };
    
 
-//Deze functie wordt afgespeeld als er op de "More results" (of "Less results") knop wordt gedrukt.
-var moreResults = function() {
-    if (maxResultsAmount === 15) {
-        maxResultsAmount = 30;
-        soundcloudRequest();
-        document.getElementById('moreResults').textContent = "Less results";
-    }
-    else {
-        maxResultsAmount = 15;
-        soundcloudRequest(); 
-        document.getElementById('moreResults').textContent = "More results";
-    }
-};
-
 //////////////////////////////////////////
 //	VISUALS
 //////////////////////////////////////////
 
+//This function extracts data from the analyser node and uses it to create the animation. It reloads itself each time the screen is 'repainted' by the computer.
 function frameLooper() {
-	window.requestAnimationFrame(frameLooper); //Creërt een loop voor de animatie.
-	fbcArray = new Uint8Array(analyser.frequencyBinCount); //Stopt de audiodata in een array.
+	window.requestAnimationFrame(frameLooper);
+	fbcArray = new Uint8Array(analyser.frequencyBinCount);
 	analyser.getByteFrequencyData(fbcArray);
-	canvasCtx.clearRect(0, 0, canvas.width, canvas.height); //'Clear' de canvas.
+	canvasCtx.clearRect(0, 0, canvas.width, canvas.height); 
 
-	bars = 1024; //Hoeveelheid staven(bars).
-	for (var i = 0; i < bars; i++) { //Deze loopt de staven.
+	bars = 1024;
+	for (var i = 0; i < bars; i++) {
 		canvasCtx.fillStyle = "hsla("+i+", "+50+Math.floor(fbcArray[i]/255*50)+"%, 70%,"+(fbcArray[i]/255)+")";
-		barX = i * 1; //Bepaalt de plaats van iederen staaf, zodat ze naast elkaar staan.
-		barWidth = 1; //Bepaalt de breedte van de staven.
+		barX = i * 1; 
+		barWidth = 1; 
 		barHeight = -(fbcArray[i]);
-		if (fbcArray[i] >= 0.5) {barHeight = -(fbcArray[i] * 0.5)} //Bepaalt de hoogte van de staven op basis van de de audiodata (dus het samplegetal) die in de array is gestopt. 
-		//  fillRect( x, y, width, height ) // Explanation of the parameters below
-		canvasCtx.fillRect(barX, canvas.height, barWidth, barHeight); //Deze geeft de staven weer.
+		if (fbcArray[i] >= 0.5) {barHeight = -(fbcArray[i] * 0.5)}
+		canvasCtx.fillRect(barX, canvas.height, barWidth, barHeight);
 	}
 }
 
