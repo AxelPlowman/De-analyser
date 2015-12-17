@@ -122,10 +122,11 @@ ul.freqList li {
 
 
 #listSongs {
-  display: inline-block;
+  display: block;
   text-align: center;
   font-size: 0.8rem;
   border: 1px solid red;
+  margin: 0 auto;
 }
 #listSongs li {
   text-align: center;
